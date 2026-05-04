@@ -65,7 +65,6 @@
             letter-spacing: -0.5px;
             text-decoration: none;
         }
-        /* Imagen del logo (reemplazar con tu logo real) */
         .logo-img {
             width: 38px;
             height: 38px;
@@ -518,7 +517,7 @@
             text-transform: uppercase;
         }
 
-        /* ─── FOOTER (centrado) ───────── */
+        /* ─── FOOTER ───────────────────── */
         .footer {
             background: #fdf5ed;
             border-top: 1px solid var(--borde);
@@ -578,7 +577,7 @@
             transform: translateX(-50%) translateY(-6px);
         }
 
-        /* ─── MEJORAS RESPONSIVE ──────── */
+        /* ─── RESPONSIVE ──────────────── */
         @media (max-width: 768px) {
             .header {
                 padding: 10px 16px;
@@ -659,8 +658,8 @@
     <!-- ═══════════ HEADER ═══════════ -->
     <header class="header">
         <div class="logo">
-            <!-- CAMBIA ESTA IMAGEN POR TU LOGO REAL -->
-            <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23D35400'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='white' font-size='18' font-weight='bold'%3ELPS%3C/text%3E%3C/svg%3E" alt="Logo La Perla del Sur">
+            <!-- LOGO (cambiar por imagen real) -->
+            <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23D35400'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='white' font-size='18' font-weight='bold'%3ELPS%3C/text%3E%3C/svg%3E" alt="Logo">
             Combos La Perla del Sur
         </div>
         <div class="header-right">
@@ -680,13 +679,13 @@
         </div>
     </header>
 
-    <!-- ═══════════ OVERLAY CARRITO ═══════════ -->
+    <!-- OVERLAY -->
     <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- ═══════════ PANEL CARRITO ═══════════ -->
+    <!-- PANEL "MI PEDIDO" -->
     <aside class="cart-panel" id="cartPanel">
         <div class="cart-panel-header">
-            <h3>🛒 Tu Pedido</h3>
+            <h3>📋 Mi pedido</h3>
             <button class="close-cart" id="closeCart">✕</button>
         </div>
         <ul class="cart-items" id="cartItems"></ul>
@@ -696,7 +695,6 @@
             <div class="row total"><span>TOTAL</span><span id="totalDisplay">$0.00</span></div>
         </div>
 
-        <!-- Tipo de envío -->
         <div class="form-group">
             <label>🚚 Tipo de envío</label>
             <select id="tipoEnvioSelect">
@@ -706,7 +704,6 @@
             </select>
         </div>
 
-        <!-- Contenedor repartos (ciudad) -->
         <div class="address-container" id="ciudadContainer">
             <div class="form-group">
                 <label>📍 Reparto en Cienfuegos</label>
@@ -715,20 +712,17 @@
             <div class="free-delivery-msg" id="freeDeliveryMsg" style="display:none;">✅ Domicilio GRATIS</div>
         </div>
 
-        <!-- Contenedor municipios -->
         <div class="address-container" id="municipioContainer">
             <div class="form-group">
                 <label>🏘️ Municipio</label>
                 <select id="municipioSelect"><option value="">Selecciona tu municipio</option></select>
             </div>
-            <!-- Select de Consejo Popular -->
             <div class="form-group" id="consejoGroup" style="display:none;">
                 <label>📍 Consejo Popular</label>
                 <select id="consejoSelect"><option value="">Selecciona tu consejo popular</option></select>
             </div>
         </div>
 
-        <!-- Dirección exacta -->
         <div class="form-group">
             <label>🏠 Dirección exacta</label>
             <input type="text" id="direccionExactaInput" placeholder="Calle / # casa / entre calles / referencia">
@@ -744,11 +738,11 @@
         </div>
 
         <button class="whatsapp-btn" id="sendBtn" disabled>
-            💬 Enviar pedido por WhatsApp (factura incluida)
+            💬 Enviar pedido por WhatsApp
         </button>
     </aside>
 
-    <!-- ═══════════ CONTENIDO PRINCIPAL ═══════════ -->
+    <!-- CONTENIDO PRINCIPAL -->
     <main class="container">
         <section class="seccion" id="productosSeccion">
             <h2>🥩 Productos</h2>
@@ -760,7 +754,7 @@
         </section>
     </main>
 
-    <!-- FOOTER con contactos centrados -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="admin">
             Administrado por <span>neXo</span> © Combos La Perla del Sur
@@ -776,12 +770,11 @@
 
     <script>
         (function() {
-            // ══════════════════════════════════════
-            // CONFIGURACIÓN MODIFICABLE
-            // ══════════════════════════════════════
+            // ═══════════════════════════════
+            // CONFIGURACIÓN
+            // ═══════════════════════════════
             const WHATSAPP_NUMBER = '5355415537';
 
-            // Costos de envío por municipio (se mantiene)
             const municipioCostos = {
                 'Aguada de Pasajeros': 3.00,
                 'Abreus': 3.50,
@@ -792,7 +785,6 @@
                 'Rodas': 4.20,
             };
 
-            // Repartos de Cienfuegos (envío gratis)
             const repartos = [
                 'Centro Histórico','Punta Gorda','La Gloria','Reina','Pastorita','Tulipán',
                 'Paraíso','Buena Vista','Caonao','Junco Sur','San Lázaro','La Juanita',
@@ -800,7 +792,6 @@
                 'San Fernando','La Marítima'
             ];
 
-            // ═══════ CONSEJOS POPULARES POR MUNICIPIO ═══════
             const consejosPopulares = {
                 'Aguada de Pasajeros': ['María Victoria','Federal','Primero de Mayo','Real Campiña','Managuaco','La Torula','La Libertad'],
                 'Abreus': ['Constancia','Horquita','Yaguaramas','Charca','Cieneguita'],
@@ -811,117 +802,26 @@
                 'Rodas': ['Rodas I','14 de Julio']
             };
 
-            // ══════════════════════════════════════
-            // PRODUCTOS (con categoría)
-            // ══════════════════════════════════════
             const productos = [
-                {
-                    id: 'p1',
-                    nombre: 'Muzlo de cerdo',
-                    peso: '2 libras',
-                    precio: 6.50,
-                    descuento: 0,
-                    categoria: 'carnicos',
-                    img: 'https://picsum.photos/seed/cerdo/400/300'
-                },
-                {
-                    id: 'p2',
-                    nombre: 'Aceite vegetal',
-                    peso: '1 litro',
-                    precio: 3.20,
-                    descuento: 5,
-                    categoria: 'enlatados',
-                    img: 'https://picsum.photos/seed/aceite/400/300'
-                },
-                {
-                    id: 'p3',
-                    nombre: 'Arroz',
-                    peso: '5 libras',
-                    precio: 4.00,
-                    descuento: 10,
-                    categoria: 'granos',
-                    img: 'https://picsum.photos/seed/arroz/400/300'
-                },
-                {
-                    id: 'p4',
-                    nombre: 'Frijoles negros',
-                    peso: '2 libras',
-                    precio: 3.50,
-                    descuento: 0,
-                    categoria: 'granos',
-                    img: 'https://picsum.photos/seed/frijoles/400/300'
-                },
-                {
-                    id: 'p5',
-                    nombre: 'Azúcar blanca',
-                    peso: '4 libras',
-                    precio: 2.80,
-                    descuento: 5,
-                    categoria: 'confituras',
-                    img: 'https://picsum.photos/seed/azucar/400/300'
-                },
-                {
-                    id: 'p6',
-                    nombre: 'Refresco lata',
-                    peso: '355 ml',
-                    precio: 1.50,
-                    descuento: 0,
-                    categoria: 'bebidas',
-                    img: 'https://picsum.photos/seed/refresco/400/300'
-                },
-                {
-                    id: 'p7',
-                    nombre: 'Huevos (paquete 12)',
-                    peso: '12 unidades',
-                    precio: 4.20,
-                    descuento: 0,
-                    categoria: 'otros',
-                    img: 'https://picsum.photos/seed/huevos/400/300'
-                },
-                {
-                    id: 'p8',
-                    nombre: 'Pan de molde',
-                    peso: '500 g',
-                    precio: 2.30,
-                    descuento: 10,
-                    categoria: 'otros',
-                    img: 'https://picsum.photos/seed/pan/400/300'
-                },
+                { id: 'p1', nombre: 'Muzlo de cerdo', peso: '2 libras', precio: 6.50, descuento: 0, categoria: 'carnicos', img: 'https://picsum.photos/seed/cerdo/400/300' },
+                { id: 'p2', nombre: 'Aceite vegetal', peso: '1 litro', precio: 3.20, descuento: 5, categoria: 'enlatados', img: 'https://picsum.photos/seed/aceite/400/300' },
+                { id: 'p3', nombre: 'Arroz', peso: '5 libras', precio: 4.00, descuento: 10, categoria: 'granos', img: 'https://picsum.photos/seed/arroz/400/300' },
+                { id: 'p4', nombre: 'Frijoles negros', peso: '2 libras', precio: 3.50, descuento: 0, categoria: 'granos', img: 'https://picsum.photos/seed/frijoles/400/300' },
+                { id: 'p5', nombre: 'Azúcar blanca', peso: '4 libras', precio: 2.80, descuento: 5, categoria: 'confituras', img: 'https://picsum.photos/seed/azucar/400/300' },
+                { id: 'p6', nombre: 'Refresco lata', peso: '355 ml', precio: 1.50, descuento: 0, categoria: 'bebidas', img: 'https://picsum.photos/seed/refresco/400/300' },
+                { id: 'p7', nombre: 'Huevos (paquete 12)', peso: '12 unidades', precio: 4.20, descuento: 0, categoria: 'otros', img: 'https://picsum.photos/seed/huevos/400/300' },
+                { id: 'p8', nombre: 'Pan de molde', peso: '500 g', precio: 2.30, descuento: 10, categoria: 'otros', img: 'https://picsum.photos/seed/pan/400/300' }
             ];
 
-            // ══════════════════════════════════════
-            // COMBOS
-            // ══════════════════════════════════════
             const combos = [
-                {
-                    id: 'c1',
-                    nombre: 'Combo Familiar',
-                    incluye: 'Muzlo de cerdo (2 lb) + Arroz (5 lb) + Frijoles (2 lb) + Aceite (1 L)',
-                    precio: 14.00,
-                    descuento: 0,
-                    img: 'https://picsum.photos/seed/combo1/400/300'
-                },
-                {
-                    id: 'c2',
-                    nombre: 'Combo Desayuno',
-                    incluye: 'Huevos (12) + Pan de molde + Refresco (2 latas) + Azúcar (2 lb)',
-                    precio: 8.50,
-                    descuento: 0,
-                    img: 'https://picsum.photos/seed/combo2/400/300'
-                },
-                {
-                    id: 'c3',
-                    nombre: 'Super Combo Ahorro',
-                    incluye: 'Muzlo de cerdo (3 lb) + Arroz (10 lb) + Frijoles (4 lb) + Aceite (2 L) + Azúcar (4 lb)',
-                    precio: 22.00,
-                    descuento: 10,
-                    img: 'https://picsum.photos/seed/combo3/400/300'
-                }
+                { id: 'c1', nombre: 'Combo Familiar', incluye: 'Muzlo de cerdo (2 lb) + Arroz (5 lb) + Frijoles (2 lb) + Aceite (1 L)', precio: 14.00, descuento: 0, img: 'https://picsum.photos/seed/combo1/400/300' },
+                { id: 'c2', nombre: 'Combo Desayuno', incluye: 'Huevos (12) + Pan de molde + Refresco (2 latas) + Azúcar (2 lb)', precio: 8.50, descuento: 0, img: 'https://picsum.photos/seed/combo2/400/300' },
+                { id: 'c3', nombre: 'Super Combo Ahorro', incluye: 'Muzlo de cerdo (3 lb) + Arroz (10 lb) + Frijoles (4 lb) + Aceite (2 L) + Azúcar (4 lb)', precio: 22.00, descuento: 10, img: 'https://picsum.photos/seed/combo3/400/300' }
             ];
 
-            // ══════════════════════════════════════
-            // LÓGICA DE LA TIENDA
-            // ══════════════════════════════════════
+            // ═══════════════════════════════
+            // CARRITO
+            // ═══════════════════════════════
             const cart = [];
 
             // DOM
@@ -952,19 +852,16 @@
             const combosGrid = document.getElementById('combosGrid');
             const combosSeccion = document.getElementById('combosSeccion');
 
-            // Llenar repartos
+            // Llenar selects
             repartos.forEach(r => repartoSelect.add(new Option(r, r)));
-            // Llenar municipios
             Object.keys(municipioCostos).forEach(m => municipioSelect.add(new Option(m, m)));
 
-            // Manejar cambio de municipio -> llenar consejos populares
+            // Evento cambio de municipio → llenar consejos
             municipioSelect.addEventListener('change', () => {
                 const mun = municipioSelect.value;
                 consejoSelect.innerHTML = '<option value="">Selecciona tu consejo popular</option>';
                 if (mun && consejosPopulares[mun]) {
-                    consejosPopulares[mun].forEach(cp => {
-                        consejoSelect.add(new Option(cp, cp));
-                    });
+                    consejosPopulares[mun].forEach(cp => consejoSelect.add(new Option(cp, cp)));
                     consejoGroup.style.display = 'block';
                 } else {
                     consejoGroup.style.display = 'none';
@@ -979,6 +876,7 @@
                 return descuento > 0 ? precio * (1 - descuento / 100) : precio;
             }
 
+            // Crear tarjeta
             function crearCard(item, esCombo = false) {
                 const div = document.createElement('div');
                 div.className = 'product-card';
@@ -1042,7 +940,7 @@
             closeCart.addEventListener('click', closeCartPanel);
             cartOverlay.addEventListener('click', closeCartPanel);
 
-            // Manejar tipo de envío
+            // Tipo envío
             tipoEnvioSelect.addEventListener('change', () => {
                 const tipo = tipoEnvioSelect.value;
                 ciudadContainer.classList.remove('active');
@@ -1063,11 +961,16 @@
                 updateTotals();
                 updateSendBtn();
             });
-            consejoSelect.addEventListener('change', () => {
-                updateSendBtn();
+            consejoSelect.addEventListener('change', updateSendBtn);
+
+            // ✨ ELIMINAR PRODUCTO (evento delegado en la lista)
+            cartItemsEl.addEventListener('click', (e) => {
+                const btn = e.target.closest('.cart-item-remove');
+                if (!btn) return;
+                const id = btn.dataset.id;
+                removeItem(id);
             });
 
-            // Carrito
             function addItem(item, esCombo) {
                 const existing = cart.find(i => i.id === item.id);
                 if (existing) {
@@ -1086,8 +989,9 @@
                 renderCart();
                 pulseBadge();
                 showToast(`✅ ${item.nombre} añadido`);
-                // Se eliminó openCart() para no abrir automáticamente
+                // No abre el carrito automáticamente
             }
+
             function removeItem(id) {
                 cart = cart.filter(i => i.id !== id);
                 renderCart();
@@ -1112,12 +1016,6 @@
                     `;
                     cartItemsEl.appendChild(li);
                 });
-                document.querySelectorAll('.cart-item-remove').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        removeItem(btn.dataset.id);
-                    });
-                });
                 updateTotals();
                 updateBadge();
                 updateSendBtn();
@@ -1131,9 +1029,7 @@
             }
 
             function updateTotals() {
-                const subtotal = cart.reduce((sum, item) => {
-                    return sum + precioConDescuento(item.precio, item.descuento) * item.cantidad;
-                }, 0);
+                const subtotal = cart.reduce((sum, item) => sum + precioConDescuento(item.precio, item.descuento) * item.cantidad, 0);
                 const shipping = obtenerCostoEnvio();
                 const total = subtotal + shipping;
                 subtotalDisplay.textContent = `$${subtotal.toFixed(2)}`;
@@ -1162,11 +1058,8 @@
             function updateSendBtn() {
                 const tipo = tipoEnvioSelect.value;
                 let direccionOk = false;
-                if (tipo === 'ciudad' && repartoSelect.value) {
-                    direccionOk = true;
-                } else if (tipo === 'municipio' && municipioSelect.value && consejoSelect.value) {
-                    direccionOk = true;
-                }
+                if (tipo === 'ciudad' && repartoSelect.value) direccionOk = true;
+                else if (tipo === 'municipio' && municipioSelect.value && consejoSelect.value) direccionOk = true;
                 const ok = cart.length > 0 &&
                            direccionExactaInput.value.trim().length >= 3 &&
                            nombreInput.value.trim().length >= 2 &&
@@ -1179,18 +1072,15 @@
             telefonoInput.addEventListener('input', updateSendBtn);
             direccionExactaInput.addEventListener('input', updateSendBtn);
 
-            // Añadir productos (NO abre carrito)
+            // Añadir producto desde tarjetas (delegado)
             document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart')) {
-                    const id = e.target.dataset.id;
-                    const esCombo = e.target.dataset.escombo === 'true';
-                    const fuente = esCombo ? combos : productos;
-                    const item = fuente.find(p => p.id === id);
-                    if (item) {
-                        addItem(item, esCombo);
-                        // No se llama a openCart() para mantenerlo cerrado
-                    }
-                }
+                const btn = e.target.closest('.add-to-cart');
+                if (!btn) return;
+                const id = btn.dataset.id;
+                const esCombo = btn.dataset.escombo === 'true';
+                const fuente = esCombo ? combos : productos;
+                const item = fuente.find(p => p.id === id);
+                if (item) addItem(item, esCombo);
             });
 
             // Toast
@@ -1202,29 +1092,23 @@
                 toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
             }
 
-            // Generar factura y enviar por WhatsApp
+            // Enviar a WhatsApp
             function generarFacturaTexto() {
                 const nombre = nombreInput.value.trim();
                 const telefono = telefonoInput.value.trim();
                 const tipo = tipoEnvioSelect.value;
                 let direccionCompleta = '';
-                if (tipo === 'ciudad') {
-                    direccionCompleta = `Reparto: ${repartoSelect.value}`;
-                } else if (tipo === 'municipio') {
-                    direccionCompleta = `Municipio: ${municipioSelect.value}, Consejo Popular: ${consejoSelect.value}`;
-                }
+                if (tipo === 'ciudad') direccionCompleta = `Reparto: ${repartoSelect.value}`;
+                else if (tipo === 'municipio') direccionCompleta = `Municipio: ${municipioSelect.value}, Consejo Popular: ${consejoSelect.value}`;
                 const direccionExacta = direccionExactaInput.value.trim();
                 const subtotal = cart.reduce((sum, item) => sum + precioConDescuento(item.precio, item.descuento) * item.cantidad, 0);
                 const shipping = obtenerCostoEnvio();
                 const total = subtotal + shipping;
 
                 let texto = `📄 *FACTURA - Combos La Perla del Sur*\n\n`;
-                texto += `*Cliente:* ${nombre}\n`;
-                texto += `*Teléfono:* ${telefono}\n`;
-                texto += `*Dirección:* ${direccionCompleta}\n`;
-                texto += `*Dirección exacta:* ${direccionExacta}\n`;
-                texto += `*Fecha:* ${new Date().toLocaleDateString('es-CU')}\n\n`;
-                texto += `*PRODUCTOS:*\n`;
+                texto += `*Cliente:* ${nombre}\n*Teléfono:* ${telefono}\n`;
+                texto += `*Dirección:* ${direccionCompleta}\n*Dirección exacta:* ${direccionExacta}\n`;
+                texto += `*Fecha:* ${new Date().toLocaleDateString('es-CU')}\n\n*PRODUCTOS:*\n`;
                 cart.forEach(item => {
                     const precioUnit = precioConDescuento(item.precio, item.descuento);
                     const subtot = precioUnit * item.cantidad;
@@ -1232,18 +1116,14 @@
                     if (item.descuento > 0) texto += `  (desc. ${item.descuento}%)`;
                     texto += `\n`;
                 });
-                texto += `\n*Subtotal:* $${subtotal.toFixed(2)}\n`;
-                texto += `*Envío:* ${shipping === 0 ? 'GRATIS' : '$' + shipping.toFixed(2)}\n`;
-                texto += `*TOTAL:* $${total.toFixed(2)}\n\n`;
-                texto += `✅ ¡Gracias por su compra!`;
+                texto += `\n*Subtotal:* $${subtotal.toFixed(2)}\n*Envío:* ${shipping === 0 ? 'GRATIS' : '$' + shipping.toFixed(2)}\n*TOTAL:* $${total.toFixed(2)}\n\n✅ ¡Gracias por su compra!`;
                 return texto;
             }
 
             sendBtn.addEventListener('click', () => {
                 if (sendBtn.disabled) return;
                 const factura = generarFacturaTexto();
-                const mensaje = encodeURIComponent(factura);
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`, '_blank');
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(factura)}`, '_blank');
                 showToast('📤 Factura enviada a WhatsApp');
             });
 
