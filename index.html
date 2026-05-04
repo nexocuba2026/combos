@@ -577,6 +577,37 @@
             transform: translateX(-50%) translateY(-6px);
         }
 
+        /* ─── BOTÓN FLOTANTE ENVIAR ───── */
+        .floating-enviar {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--naranja-oscuro);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(211, 84, 0, 0.3);
+            z-index: 250;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transicion);
+            animation: float 3s ease-in-out infinite;
+        }
+        .floating-enviar:hover {
+            background: var(--caramelo);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(160, 64, 0, 0.4);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
         /* ─── RESPONSIVE ──────────────── */
         @media (max-width: 768px) {
             .header {
@@ -626,6 +657,12 @@
             }
             .seccion h2 {
                 font-size: 1.4rem;
+            }
+            .floating-enviar {
+                bottom: 16px;
+                right: 16px;
+                padding: 10px 20px;
+                font-size: 0.85rem;
             }
         }
         @media (max-width: 480px) {
@@ -742,6 +779,11 @@
         </button>
     </aside>
 
+    <!-- BOTÓN FLOTANTE ENVIAR -->
+    <button class="floating-enviar" id="floatingEnviarBtn">
+        📤 Enviar
+    </button>
+
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container">
         <section class="seccion" id="productosSeccion">
@@ -851,6 +893,7 @@
             const productosGrid = document.getElementById('productosGrid');
             const combosGrid = document.getElementById('combosGrid');
             const combosSeccion = document.getElementById('combosSeccion');
+            const floatingEnviarBtn = document.getElementById('floatingEnviarBtn');
 
             // Llenar selects
             repartos.forEach(r => repartoSelect.add(new Option(r, r)));
@@ -940,6 +983,9 @@
             closeCart.addEventListener('click', closeCartPanel);
             cartOverlay.addEventListener('click', closeCartPanel);
 
+            // Botón flotante "Enviar" abre el carrito
+            floatingEnviarBtn.addEventListener('click', openCart);
+
             // Tipo envío
             tipoEnvioSelect.addEventListener('change', () => {
                 const tipo = tipoEnvioSelect.value;
@@ -963,14 +1009,6 @@
             });
             consejoSelect.addEventListener('change', updateSendBtn);
 
-            // ✨ ELIMINAR PRODUCTO (evento delegado en la lista)
-            cartItemsEl.addEventListener('click', (e) => {
-                const btn = e.target.closest('.cart-item-remove');
-                if (!btn) return;
-                const id = btn.dataset.id;
-                removeItem(id);
-            });
-
             function addItem(item, esCombo) {
                 const existing = cart.find(i => i.id === item.id);
                 if (existing) {
@@ -989,7 +1027,6 @@
                 renderCart();
                 pulseBadge();
                 showToast(`✅ ${item.nombre} añadido`);
-                // No abre el carrito automáticamente
             }
 
             function removeItem(id) {
@@ -1014,6 +1051,11 @@
                         <span class="cart-item-price">$${subtotalItem.toFixed(2)}</span>
                         <button class="cart-item-remove" data-id="${item.id}">✕</button>
                     `;
+                    // Agregar listener directamente al botón de eliminar
+                    const removeBtn = li.querySelector('.cart-item-remove');
+                    removeBtn.addEventListener('click', () => {
+                        removeItem(item.id);
+                    });
                     cartItemsEl.appendChild(li);
                 });
                 updateTotals();
