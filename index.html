@@ -34,6 +34,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* ─── HEADER ─────────────────────── */
         .header {
             background: rgba(255, 255, 255, 0.94);
             backdrop-filter: blur(14px);
@@ -65,7 +66,7 @@
             height: 38px;
             border-radius: 10px;
             object-fit: contain;
-           background: #ffffff;
+            background: #ffffff;      /* fondo blanco */
         }
         .header-right {
             display: flex;
@@ -129,10 +130,9 @@
             font-weight: 700;
             transition: 0.2s;
         }
-        .cart-badge:empty {
-            display: none;
-        }
+        .cart-badge:empty { display: none; }
 
+        /* ─── CONTENEDOR PRINCIPAL ─────── */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -154,6 +154,8 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 18px;
         }
+
+        /* ─── TARJETA DE PRODUCTO ─────── */
         .product-card {
             background: var(--blanco);
             border-radius: var(--radio);
@@ -168,14 +170,13 @@
             transform: translateY(-4px);
             box-shadow: 0 14px 34px rgba(160, 64, 0, 0.14);
         }
-    .product-card img {
-    display: block;
-    max-width: 100%;
-    height: 200px;
-    object-fit: contain;
-   background: #ffffff;
-    margin: 0 auto;
-}
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: #ffffff;        /* fondo blanco */
+            cursor: pointer;            /* indica que es cliqueable */
+        }
         .product-info {
             padding: 14px 12px;
             flex: 1;
@@ -254,6 +255,62 @@
             text-transform: uppercase;
         }
 
+        /* ─── LIGHTBOX ────────────────── */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-content img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--texto);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: var(--transicion);
+        }
+        .lightbox-close:hover {
+            background: #fbe9e7;
+            color: var(--rojo);
+        }
+
+        /* ─── BOTÓN FLOTANTE ENVIAR ───── */
         .floating-enviar {
             position: fixed;
             bottom: 24px;
@@ -285,6 +342,7 @@
             50% { transform: translateY(-6px); }
         }
 
+        /* ─── FOOTER ───────────────────── */
         .footer {
             background: #fdf5ed;
             border-top: 1px solid var(--borde);
@@ -299,30 +357,13 @@
             color: var(--texto-claro);
             font-weight: 500;
         }
-        .footer .admin {
-            font-weight: 700;
-            color: var(--naranja-oscuro);
-        }
-        .footer .contacto {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        }
-        .footer .contacto a {
-            color: var(--texto-claro);
-            text-decoration: none;
-            transition: var(--transicion);
-            font-weight: 500;
-        }
-        .footer .contacto a:hover {
-            color: var(--naranja);
-        }
-        .footer .contacto span {
-            margin-right: 4px;
-        }
+        .footer .admin { font-weight: 700; color: var(--naranja-oscuro); }
+        .footer .contacto { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .footer .contacto a { color: var(--texto-claro); text-decoration: none; transition: var(--transicion); font-weight: 500; }
+        .footer .contacto a:hover { color: var(--naranja); }
+        .footer .contacto span { margin-right: 4px; }
 
+        /* ─── TOAST ────────────────────── */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -338,77 +379,28 @@
             pointer-events: none;
             transition: opacity 0.3s, transform 0.3s;
         }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-6px);
-        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
 
+        /* ─── RESPONSIVE ──────────────── */
         @media (max-width: 768px) {
-            .header {
-                padding: 10px 16px;
-                gap: 10px;
-            }
-            .logo {
-                font-size: 1.2rem;
-                gap: 8px;
-            }
-            .logo-img {
-                width: 32px;
-                height: 32px;
-            }
-            .header-right {
-                gap: 10px;
-            }
-            .category-select {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-                background-position: right 8px center;
-                padding-right: 28px;
-                max-width: 140px;
-            }
-            .cart-btn {
-                padding: 8px 14px;
-                font-size: 0.85rem;
-            }
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 12px;
-            }
-            .product-card img {
-                height: 120px;
-            }
-            .seccion h2 {
-                font-size: 1.4rem;
-            }
-            .floating-enviar {
-                bottom: 16px;
-                right: 16px;
-                padding: 10px 20px;
-                font-size: 0.85rem;
-            }
+            .header { padding: 10px 16px; gap: 10px; }
+            .logo { font-size: 1.2rem; gap: 8px; }
+            .logo-img { width: 32px; height: 32px; }
+            .header-right { gap: 10px; }
+            .category-select { padding: 8px 12px; font-size: 0.8rem; background-position: right 8px center; padding-right: 28px; max-width: 140px; }
+            .cart-btn { padding: 8px 14px; font-size: 0.85rem; }
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+            .product-card img { height: 120px; }
+            .seccion h2 { font-size: 1.4rem; }
+            .floating-enviar { bottom: 16px; right: 16px; padding: 10px 20px; font-size: 0.85rem; }
         }
         @media (max-width: 480px) {
-            .products-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .product-card img {
-                height: 110px;
-            }
-            .product-info {
-                padding: 10px 8px;
-            }
-            .product-name {
-                font-size: 0.9rem;
-            }
-            .add-to-cart {
-                font-size: 0.8rem;
-                padding: 8px;
-            }
-            .header-right {
-                flex-grow: 1;
-                justify-content: flex-end;
-            }
+            .products-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .product-card img { height: 110px; }
+            .product-info { padding: 10px 8px; }
+            .product-name { font-size: 0.9rem; }
+            .add-to-cart { font-size: 0.8rem; padding: 8px; }
+            .header-right { flex-grow: 1; justify-content: flex-end; }
         }
     </style>
 </head>
@@ -445,7 +437,15 @@
         </section>
     </main>
 
-    <a href="pedido.html" class="floating-enviar" id="floatingEnviarBtn">📤 Enviar</a>
+    <!-- LIGHTBOX -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img id="lightboxImg" src="" alt="Vista ampliada">
+        </div>
+    </div>
+
+    <a href="pedido.html" class="floating-enviar">📤 Enviar</a>
 
     <footer class="footer">
         <div class="admin">Administrado por <span>neXo</span> © Combos La Perla del Sur</div>
@@ -460,20 +460,20 @@
     <script>
         // Productos y combos (usa localStorage para el carrito)
         const productos = [
-            { id: 'p1', nombre: 'Muzlo de cerdo', peso: '15 libras', precio: 6.50, descuento: 0, categoria: 'carnicos', img: 'img/cerdo.jpg' },
+            { id: 'p1', nombre: 'Muzlo de cerdo', peso: '2 libras', precio: 6.50, descuento: 0, categoria: 'carnicos', img: 'img/cerdo.jpg' },
             { id: 'p2', nombre: 'Aceite vegetal', peso: '1 litro', precio: 3.20, descuento: 5, categoria: 'enlatados', img: 'img/aceite.jpg' },
             { id: 'p3', nombre: 'Arroz', peso: '5 libras', precio: 4.00, descuento: 10, categoria: 'granos', img: 'img/arroz.jpg' },
             { id: 'p4', nombre: 'Frijoles negros', peso: '2 libras', precio: 3.50, descuento: 0, categoria: 'granos', img: 'img/frijoles.jpg' },
             { id: 'p5', nombre: 'Azúcar blanca', peso: '4 libras', precio: 2.80, descuento: 5, categoria: 'confituras', img: 'img/azucar.jpg' },
             { id: 'p6', nombre: 'Refresco lata', peso: '355 ml', precio: 1.50, descuento: 0, categoria: 'bebidas', img: 'img/refresco.jpg' },
-            { id: 'p7', nombre: 'Huevos (paquete 12)', peso: '10 unidades', precio: 4.20, descuento: 0, categoria: 'otros', img: 'img/huevos.jpg' },
+            { id: 'p7', nombre: 'Huevos (paquete 12)', peso: '12 unidades', precio: 4.20, descuento: 0, categoria: 'otros', img: 'img/huevos.jpg' },
             { id: 'p8', nombre: 'Pan de molde', peso: '500 g', precio: 2.30, descuento: 10, categoria: 'otros', img: 'img/pan.jpg' }
         ];
 
         const combos = [
-            { id: 'c1', nombre: 'Combo Pequeño', incluye: 'Muzlo (15.lb)+Arroz(5lb)+Frijoles(2lb)+Aceite(1L)', precio: 14.00, descuento: 0, img: 'img/combo1.jpg' },
-            { id: 'c2', nombre: 'Combo Grande', incluye: 'Huevos(10)+Pan+Refresco(2)+Azúcar(2.lb)', precio: 22.50, descuento: 0, img: 'img/combo2.jpg' },
-            { id: 'c3', nombre: 'Super Combo', incluye: 'Muzlo(3lb)+Arroz(10lb)+Frijoles(4lb)+Aceite(2L)+Azúcar(4lb)', precio: 25.50, descuento: 10, img: 'img/combo3.jpg' }
+            { id: 'c1', nombre: 'Combo Familiar', incluye: 'Muzlo (2lb)+Arroz(5lb)+Frijoles(2lb)+Aceite(1L)', precio: 14.00, descuento: 0, img: 'img/combo1.jpg' },
+            { id: 'c2', nombre: 'Combo Desayuno', incluye: 'Huevos(12)+Pan+Refresco(2)+Azúcar(2lb)', precio: 8.50, descuento: 0, img: 'img/combo2.jpg' },
+            { id: 'c3', nombre: 'Super Combo Ahorro', incluye: 'Muzlo(3lb)+Arroz(10lb)+Frijoles(4lb)+Aceite(2L)+Azúcar(4lb)', precio: 22.00, descuento: 10, img: 'img/combo3.jpg' }
         ];
 
         function precioConDescuento(precio, descuento) {
@@ -486,7 +486,7 @@
             const precioFinal = precioConDescuento(item.precio, item.descuento || 0);
             const tieneDescuento = (item.descuento || 0) > 0;
             div.innerHTML = `
-                <img src="${item.img}" alt="${item.nombre}" loading="lazy">
+                <img src="${item.img}" alt="${item.nombre}" loading="lazy" class="product-img-clickable">
                 <div class="product-info">
                     ${esCombo ? '<span class="combo-badge">COMBO</span>' : ''}
                     <span class="product-name">${item.nombre}</span>
@@ -500,6 +500,12 @@
                     <button class="add-to-cart" data-id="${item.id}" data-escombo="${esCombo}">＋ Añadir</button>
                 </div>
             `;
+            // Agregar evento a la imagen para abrir lightbox
+            const img = div.querySelector('.product-img-clickable');
+            img.addEventListener('click', (e) => {
+                e.stopPropagation(); // no añadir al carrito
+                openLightbox(item.img, item.nombre);
+            });
             return div;
         }
 
@@ -575,6 +581,36 @@
             const btn = e.target.closest('.add-to-cart');
             if (!btn) return;
             addToCart(btn.dataset.id, btn.dataset.escombo);
+        });
+
+        // Lightbox
+        const lightboxOverlay = document.getElementById('lightboxOverlay');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        function openLightbox(src, alt) {
+            lightboxImg.src = src;
+            lightboxImg.alt = alt;
+            lightboxOverlay.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxOverlay.addEventListener('click', (e) => {
+            // cerrar solo si se hace clic en el fondo, no en la imagen
+            if (e.target === lightboxOverlay) {
+                closeLightbox();
+            }
+        });
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+                closeLightbox();
+            }
         });
 
         // Badge al cargar
