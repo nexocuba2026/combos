@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores Cienfuegos — Tienda Online</title>
+    <style>
+        :root {
+            --bg: #fafaf8;
+            --surface: #ffffff;
+            --text: #2d2d2b;
+            --text-light: #6b6b66;
+            --accent: #3a7d44;
+            --accent-hover: #2e6636;
+            --accent-light: #e8f5e9;
+            --border: #e8e8e4;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
+            --radius-sm: 10px;
+            --radius: 14px;
+            --radius-lg: 18px;
+            --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── HEADER ─────────────────────── */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: -0.4px;
+            color: var(--accent);
+            cursor: default;
+            user-select: none;
+        }
+        .header-logo .icon {
+            width: 38px;
+            height: 38px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .cart-trigger {
+            position: relative;
+            cursor: pointer;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            color: var(--text);
+            user-select: none;
+        }
+        .cart-trigger:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        .cart-trigger .badge {
+            background: var(--accent);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .cart-trigger .badge:empty {
+            display: none;
+        }
+        .cart-trigger .badge.pulse {
+            animation: pulseBadge 0.4s ease;
+        }
+        @keyframes pulseBadge {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.35);
+            }
+        }
+
+        /* ─── MAIN LAYOUT ──────────────── */
+        .main-container {
+            display: flex;
+            gap: 28px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 28px 24px 40px;
+            min-height: calc(100vh - 180px);
+        }
+
+        /* ─── PRODUCTOS ────────────────── */
+        .products-section {
+            flex: 1 1 62%;
+            min-width: 0;
+        }
+        .products-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 18px;
+        }
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px 18px 18px;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            border-color: #ccc;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+        .product-card .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+        .product-card:hover .emoji {
+            transform: scale(1.12) rotate(-4deg);
+        }
+        .product-card .name {
+            font-weight: 650;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--text);
+            letter-spacing: -0.2px;
+        }
+        .product-card .desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .product-card .price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        .product-card .add-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 9px 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: -0.2px;
+            transition: var(--transition);
+            width: 100%;
+            font-family: var(--font);
+        }
+        .product-card .add-btn:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 14px rgba(58, 125, 68, 0.35);
+            transform: translateY(-1px);
+        }
+        .product-card .add-btn:active {
+            transform: scale(0.96);
+            transition: 0.08s;
+        }
+
+        /* ─── PANEL DERECHO ────────────── */
+        .order-panel {
+            flex: 0 0 370px;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow-md);
+            padding: 24px 22px 22px;
+            position: sticky;
+            top: 100px;
+            align-self: flex-start;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+        .order-panel h3 {
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.3px;
+            text-align: center;
+            color: var(--text);
+            margin: 0;
+        }
+        .cart-items-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 60px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .cart-items-list:empty::after {
+            content: 'Aún no hay productos';
+            display: block;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9rem;
+            padding: 20px 0;
+            font-style: italic;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9faf9;
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            gap: 8px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .cart-item:hover {
+            border-color: #e0e0e0;
+        }
+        .cart-item .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .cart-item .item-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-item .item-qty {
+            color: var(--text-light);
+            font-size: 0.75rem;
+        }
+        .cart-item .item-price {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+        .cart-item .remove-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #c0392b;
+            font-size: 1.1rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            transition: var(--transition);
+            line-height: 1;
+            opacity: 0.6;
+        }
+        .cart-item .remove-btn:hover {
+            opacity: 1;
+            background: #fdecea;
+        }
+
+        .totals {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 12px 0;
+            border-top: 1.5px dashed var(--border);
+            border-bottom: 1.5px dashed var(--border);
+        }
+        .totals .row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .totals .row.total {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text);
+        }
+        .totals .row .free-badge {
+            background: #d4edda;
+            color: #1e7b34;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            animation: fadeInUp 0.35s ease;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── FORMULARIO ──────────────── */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.82rem;
+            letter-spacing: -0.1px;
+            color: var(--text);
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .form-group input,
+        .form-group select {
+            font-family: var(--font);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            font-size: 0.9rem;
+            background: #fafaf8;
+            transition: var(--transition);
+            width: 100%;
+            color: var(--text);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b6b66' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(58, 125, 68, 0.08);
+            background: #fff;
+        }
+        .free-delivery-msg {
+            background: #d4edda;
+            color: #1e7b34;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-align: center;
+            animation: fadeInUp 0.4s ease;
+            letter-spacing: 0.1px;
+        }
+
+        .send-btn {
+            background: #25D366;
+            color: #fff;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.2px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font);
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        }
+        .send-btn:hover {
+            background: #1ebe5b;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.4);
+            transform: translateY(-2px);
+        }
+        .send-btn:active {
+            transform: scale(0.96);
+            transition: 0.08s;
+        }
+        .send-btn:disabled {
+            background: #b0b0b0;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* ─── TOAST ────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        /* ─── RESPONSIVE ──────────────── */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                padding: 16px 12px 30px;
+                gap: 20px;
+            }
+            .order-panel {
+                flex: 0 0 auto;
+                position: static;
+                max-height: none;
+                border-radius: var(--radius);
+                padding: 18px 14px;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+            .product-card {
+                padding: 14px 10px 12px;
+            }
+            .product-card .emoji {
+                font-size: 2.2rem;
+            }
+            .product-card .name {
+                font-size: 0.85rem;
+            }
+            .product-card .price {
+                font-size: 1rem;
+            }
+            .product-card .add-btn {
+                font-size: 0.78rem;
+                padding: 8px 14px;
+            }
+            .header {
+                padding: 12px 16px;
+            }
+            .header-logo {
+                font-size: 1.1rem;
+            }
+            .header-logo .icon {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+                border-radius: 8px;
+            }
+            .cart-trigger {
+                padding: 8px 14px;
+                font-size: 0.82rem;
+            }
+        }
+        @media (max-width: 440px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .product-card {
+                padding: 12px 8px 10px;
+                border-radius: var(--radius-sm);
+            }
+            .product-card .emoji {
+                font-size: 1.8rem;
+            }
+            .product-card .name {
+                font-size: 0.78rem;
+            }
+            .product-card .price {
+                font-size: 0.9rem;
+            }
+            .product-card .add-btn {
+                font-size: 0.72rem;
+                padding: 7px 10px;
+            }
+            .order-panel {
+                padding: 14px 10px;
+                border-radius: var(--radius-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header class="header">
+        <div class="header-logo">
+            <span class="icon">🥗</span>
+            Sabores Cienfuegos
+        </div>
+        <div class="cart-trigger" id="cartTrigger" title="Ver carrito">
+            🛒 Carrito
+            <span class="badge" id="cartBadge"></span>
+        </div>
+    </header>
+
+    <!-- ═══════════ TOAST ═══════════ -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <div class="main-container">
+
+        <!-- PRODUCTOS -->
+        <section class="products-section">
+            <h2>🍽️ Nuestros Productos</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Se generan con JS -->
+            </div>
+        </section>
+
+        <!-- PANEL DE PEDIDO -->
+        <aside class="order-panel" id="orderPanel">
+            <h3>📋 Tu Pedido</h3>
+            <ul class="cart-items-list" id="cartItemsList"></ul>
+            <div class="totals">
+                <div class="row">
+                    <span>Subtotal</span>
+                    <span id="subtotalDisplay">$0.00</span>
+                </div>
+                <div class="row">
+                    <span>Envío</span>
+                    <span id="shippingDisplay">—</span>
+                </div>
+                <div class="row total">
+                    <span>TOTAL</span>
+                    <span id="totalDisplay">$0.00</span>
+                </div>
+            </div>
+
+            <!-- DIRECCIÓN: REPARTO -->
+            <div class="form-group">
+                <label for="repartoSelect">📍 Reparto en Cienfuegos</label>
+                <select id="repartoSelect">
+                    <option value="">— Selecciona tu reparto —</option>
+                </select>
+            </div>
+            <div class="free-delivery-msg" id="freeDeliveryMsg" style="display:none;">
+                ✅ ¡Domicilio GRATIS!
+            </div>
+
+            <!-- DIRECCIÓN: MUNICIPIO -->
+            <div class="form-group">
+                <label for="municipioSelect">🏘️ Municipio (con costo de envío)</label>
+                <select id="municipioSelect">
+                    <option value="">— Selecciona tu municipio —</option>
+                </select>
+            </div>
+
+            <!-- DATOS DEL CLIENTE -->
+            <div class="form-group">
+                <label for="nombreInput">👤 Nombre completo</label>
+                <input type="text" id="nombreInput" placeholder="Ej: María García Pérez" autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="telefonoInput">📱 Número de teléfono</label>
+                <input type="tel" id="telefonoInput" placeholder="Ej: +5355123456" autocomplete="tel">
+            </div>
+
+            <!-- BOTÓN ENVIAR -->
+            <button class="send-btn" id="sendBtn" disabled>
+                <span>💬</span> Enviar Pedido por WhatsApp
+            </button>
+        </aside>
+    </div>
+
+    <!-- ═══════════ SCRIPTS ═══════════ -->
+    <script>
+        (function() {
+            // ─── CONFIGURACIÓN ──────────────────
+            const WHATSAPP_NUMBER = '5355415537';
+            const SHIPPING_COST_MUNICIPIO = 3.00; // Costo de envío para municipios (USD)
+
+            // Repartos de la ciudad de Cienfuegos (domicilio GRATIS)
+            const repartosCienfuegos = [
+                'Centro Histórico',
+                'Punta Gorda',
+                'La Gloria',
+                'Reina',
+                'Pastorita',
+                'Tulipán',
+                'Paraíso',
+                'Buena Vista',
+                'Caonao',
+                'Junco Sur',
+                'San Lázaro',
+                'La Juanita',
+                'Hermanas Giralt',
+                'Los Pinitos',
+                'La Campana',
+                'El Cerro',
+                'Las Minas',
+                'San Fernando',
+                'La Marítima',
+            ];
+
+            // Municipios de la provincia Cienfuegos (con costo de envío)
+            const municipiosCienfuegos = [
+                'Aguada de Pasajeros',
+                'Abreus',
+                'Cruces',
+                'Cumanayagua',
+                'Lajas',
+                'Palmira',
+                'Rodas',
+            ];
+
+            // Productos disponibles
+            const productos = [{
+                id: 1,
+                emoji: '🍕',
+                nombre: 'Pizza Familiar',
+                desc: 'Grande, 8 porciones, pepperoni',
+                precio: 8.00,
+            }, {
+                id: 2,
+                emoji: '🍔',
+                nombre: 'Hamburguesa Especial',
+                desc: 'Doble carne, queso, tocineta',
+                precio: 5.00,
+            }, {
+                id: 3,
+                emoji: '🍗',
+                nombre: 'Pollo Asado',
+                desc: 'Entero, marinado al horno',
+                precio: 10.00,
+            }, {
+                id: 4,
+                emoji: '🥗',
+                nombre: 'Ensalada César',
+                desc: 'Lechuga, crutones, parmesano',
+                precio: 4.50,
+            }, {
+                id: 5,
+                emoji: '🍝',
+                nombre: 'Lasagna',
+                desc: 'Carne, bechamel, gratinada',
+                precio: 7.00,
+            }, {
+                id: 6,
+                emoji: '🌮',
+                nombre: 'Tacos (3 uds)',
+                desc: 'Pastor, cebolla, cilantro',
+                precio: 6.00,
+            }, {
+                id: 7,
+                emoji: '🍣',
+                nombre: 'Sushi Roll',
+                desc: '8 piezas, salmón y aguacate',
+                precio: 9.00,
+            }, {
+                id: 8,
+                emoji: '🌯',
+                nombre: 'Wrap de Pollo',
+                desc: 'Pollo, verduras, salsa ranch',
+                precio: 5.50,
+            }, {
+                id: 9,
+                emoji: '🧁',
+                nombre: 'Cupcakes (4 uds)',
+                desc: 'Vainilla, frosting de chocolate',
+                precio: 6.50,
+            }, {
+                id: 10,
+                emoji: '🍹',
+                nombre: 'Jugo Natural 1L',
+                desc: 'Mango, piña o guayaba',
+                precio: 3.50,
+            }, ];
+
+            // ─── ESTADO ─────────────────────────
+            const cart = []; // { id, nombre, precio, cantidad }
+
+            // ─── REFERENCIAS DOM ───────────────
+            const productsGrid = document.getElementById('productsGrid');
+            const cartItemsList = document.getElementById('cartItemsList');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartTrigger = document.getElementById('cartTrigger');
+            const subtotalDisplay = document.getElementById('subtotalDisplay');
+            const shippingDisplay = document.getElementById('shippingDisplay');
+            const totalDisplay = document.getElementById('totalDisplay');
+            const freeDeliveryMsg = document.getElementById('freeDeliveryMsg');
+            const repartoSelect = document.getElementById('repartoSelect');
+            const municipioSelect = document.getElementById('municipioSelect');
+            const nombreInput = document.getElementById('nombreInput');
+            const telefonoInput = document.getElementById('telefonoInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const toast = document.getElementById('toast');
+            const orderPanel = document.getElementById('orderPanel');
+
+            // ─── INICIALIZAR SELECTS ───────────
+            repartosCienfuegos.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r;
+                opt.textContent = r;
+                repartoSelect.appendChild(opt);
+            });
+            municipiosCienfuegos.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                municipioSelect.appendChild(opt);
+            });
+
+            // ─── RENDERIZAR PRODUCTOS ──────────
+            productos.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <span class="emoji">${p.emoji}</span>
+                    <span class="name">${p.nombre}</span>
+                    <span class="desc">${p.desc}</span>
+                    <span class="price">$${p.precio.toFixed(2)}</span>
+                    <button class="add-btn" data-id="${p.id}">＋ Añadir</button>
+                `;
+                productsGrid.appendChild(card);
+            });
+
+            // ─── FUNCIONES DEL CARRITO ─────────
+            function findCartItem(id) {
+                return cart.find(item => item.id === id);
+            }
+
+            function addToCart(id) {
+                const producto = productos.find(p => p.id === id);
+                if (!producto) return;
+                const existing = findCartItem(id);
+                if (existing) {
+                    existing.cantidad += 1;
+                } else {
+                    cart.push({
+                        id: producto.id,
+                        nombre: producto.nombre,
+                        precio: producto.precio,
+                        cantidad: 1,
+                    });
+                }
+                renderCart();
+                pulseBadge();
+                showToast(`✅ ${producto.nombre} añadido al carrito`);
+                // Scroll suave al panel en móvil
+                if (window.innerWidth <= 900) {
+                    orderPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            function removeFromCart(id) {
+                const idx = cart.findIndex(item => item.id === id);
+                if (idx !== -1) {
+                    const removed = cart[idx];
+                    cart.splice(idx, 1);
+                    renderCart();
+                    showToast(`❌ ${removed.nombre} eliminado`);
+                }
+            }
+
+            function getSubtotal() {
+                return cart.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+            }
+
+            function getShippingCost() {
+                if (municipioSelect.value) return SHIPPING_COST_MUNICIPIO;
+                return 0;
+            }
+
+            function getTotal() {
+                return getSubtotal() + getShippingCost();
+            }
+
+            function renderCart() {
+                cartItemsList.innerHTML = '';
+                if (cart.length === 0) {
+                    cartItemsList.innerHTML = ''; // CSS muestra placeholder
+                } else {
+                    cart.forEach(item => {
+                        const li = document.createElement('li');
+                        li.className = 'cart-item';
+                        li.innerHTML = `
+                            <div class="item-info">
+                                <div class="item-name">${item.nombre}</div>
+                                <div class="item-qty">Cant: ${item.cantidad} × $${item.precio.toFixed(2)}</div>
+                            </div>
+                            <span class="item-price">$${(item.precio * item.cantidad).toFixed(2)}</span>
+                            <button class="remove-btn" data-id="${item.id}" title="Quitar">✕</button>
+                        `;
+                        cartItemsList.appendChild(li);
+                    });
+                    // Event listeners para botones de eliminar
+                    cartItemsList.querySelectorAll('.remove-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const id = parseInt(btn.getAttribute('data-id'));
+                            removeFromCart(id);
+                        });
+                    });
+                }
+                updateTotals();
+                updateBadge();
+                updateSendButton();
+            }
+
+            function updateTotals() {
+                const subtotal = getSubtotal();
+                const shipping = getShippingCost();
+                const total = getTotal();
+                subtotalDisplay.textContent = `$${subtotal.toFixed(2)}`;
+
+                if (shipping === 0 && (repartoSelect.value || cart.length > 0)) {
+                    if (repartoSelect.value) {
+                        shippingDisplay.innerHTML = '<span class="free-badge">GRATIS</span>';
+                    } else if (cart.length > 0 && !municipioSelect.value && !repartoSelect.value) {
+                        shippingDisplay.textContent = '—';
+                    } else {
+                        shippingDisplay.textContent = '$0.00';
+                    }
+                } else if (shipping > 0) {
+                    shippingDisplay.textContent = `$${shipping.toFixed(2)}`;
+                } else {
+                    shippingDisplay.textContent = '—';
+                }
+                totalDisplay.textContent = `$${total.toFixed(2)}`;
+            }
+
+            function updateBadge() {
+                const totalItems = cart.reduce((sum, item) => sum + item.cantidad, 0);
+                cartBadge.textContent = totalItems > 0 ? totalItems : '';
+                if (totalItems === 0) {
+                    cartBadge.style.display = 'none';
+                } else {
+                    cartBadge.style.display = 'flex';
+                }
+            }
+
+            function pulseBadge() {
+                cartBadge.classList.remove('pulse');
+                void cartBadge.offsetWidth;
+                cartBadge.classList.add('pulse');
+            }
+
+            function updateSendButton() {
+                const hasProducts = cart.length > 0;
+                const hasName = nombreInput.value.trim().length >= 2;
+                const hasPhone = telefonoInput.value.trim().length >= 8;
+                const hasAddress = repartoSelect.value || municipioSelect.value;
+                sendBtn.disabled = !(hasProducts && hasName && hasPhone && hasAddress);
+            }
+
+            function updateFreeDeliveryMsg() {
+                if (repartoSelect.value) {
+                    freeDeliveryMsg.style.display = 'block';
+                } else {
+                    freeDeliveryMsg.style.display = 'none';
+                }
+            }
+
+            // ─── TOAST ─────────────────────────
+            let toastTimer;
+
+            function showToast(message) {
+                clearTimeout(toastTimer);
+                toast.textContent = message;
+                toast.classList.add('show');
+                toastTimer = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2200);
+            }
+
+            // ─── EVENT LISTENERS ──────────────
+            productsGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.add-btn');
+                if (!btn) return;
+                const id = parseInt(btn.getAttribute('data-id'));
+                addToCart(id);
+            });
+
+            // Al cambiar reparto, limpiar municipio y viceversa
+            repartoSelect.addEventListener('change', () => {
+                if (repartoSelect.value) {
+                    municipioSelect.value = '';
+                }
+                updateFreeDeliveryMsg();
+                updateTotals();
+                updateSendButton();
+            });
+
+            municipioSelect.addEventListener('change', () => {
+                if (municipioSelect.value) {
+                    repartoSelect.value = '';
+                }
+                updateFreeDeliveryMsg();
+                updateTotals();
+                updateSendButton();
+            });
+
+            nombreInput.addEventListener('input', updateSendButton);
+            telefonoInput.addEventListener('input', updateSendButton);
+
+            // Click en el trigger del carrito -> scroll al panel
+            cartTrigger.addEventListener('click', () => {
+                orderPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Pequeño highlight visual
+                orderPanel.style.boxShadow =
+                    '0 0 0 4px rgba(58,125,68,0.25), 0 4px 16px rgba(0,0,0,0.08)';
+                setTimeout(() => {
+                    orderPanel.style.boxShadow = '';
+                }, 800);
+            });
+
+            // ─── ENVIAR POR WHATSAPP ──────────
+            sendBtn.addEventListener('click', () => {
+                if (sendBtn.disabled) return;
+                const nombre = nombreInput.value.trim();
+                const telefono = telefonoInput.value.trim();
+                const direccion = repartoSelect.value || municipioSelect.value;
+                const tipoDireccion = repartoSelect.value ? 'Reparto (Cienfuegos ciudad)' :
+                    'Municipio';
+                const subtotal = getSubtotal();
+                const shipping = getShippingCost();
+                const total = getTotal();
+
+                let mensaje = `*🛒 NUEVO PEDIDO — Sabores Cienfuegos*%0A%0A`;
+                mensaje += `*Cliente:* ${nombre}%0A`;
+                mensaje += `*Teléfono:* ${telefono}%0A`;
+                mensaje += `*Dirección:* ${direccion} (${tipoDireccion})%0A%0A`;
+                mensaje += `*📋 Productos:*%0A`;
+
+                cart.forEach(item => {
+                    mensaje +=
+                        `  • ${item.nombre} ×${item.cantidad} — $${(item.precio * item.cantidad).toFixed(2)}%0A`;
+                });
+
+                mensaje += `%0A*Subtotal:* $${subtotal.toFixed(2)}%0A`;
+                if (shipping === 0) {
+                    mensaje += `*Envío:* GRATIS 🚚%0A`;
+                } else {
+                    mensaje += `*Envío:* $${shipping.toFixed(2)}%0A`;
+                }
+                mensaje += `*TOTAL A PAGAR:* $${total.toFixed(2)} ✅`;
+
+                const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
+                window.open(url, '_blank', 'noopener,noreferrer');
+                showToast('📤 Abriendo WhatsApp...');
+            });
+
+            // ─── INICIALIZAR ──────────────────
+            renderCart();
+            updateFreeDeliveryMsg();
+            updateSendButton();
+
+            console.log('🍽️ Sabores Cienfuegos — Tienda lista');
+            console.log('📦 Productos cargados:', productos.length);
+            console.log('📍 Repartos:', repartosCienfuegos.length, '| Municipios:', municipiosCienfuegos
+                .length);
+            console.log('📱 WhatsApp:', WHATSAPP_NUMBER);
+        })();
+    </script>
+</body>
+</html>
