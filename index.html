@@ -63,18 +63,15 @@
             font-size: 1.4rem;
             color: var(--naranja-oscuro);
             letter-spacing: -0.5px;
+            text-decoration: none;
         }
-        .logo .icono {
-            background: var(--naranja-oscuro);
-            color: white;
+        /* Imagen del logo (reemplazar con tu logo real) */
+        .logo-img {
             width: 38px;
             height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 10px rgba(211, 84, 0, 0.3);
+            border-radius: 10px;
+            object-fit: contain;
+            background: #fae1cf; /* fondo sutil */
         }
         .header-right {
             display: flex;
@@ -522,19 +519,20 @@
             text-transform: uppercase;
         }
 
-        /* ─── FOOTER ───────────────────── */
+        /* ─── FOOTER (centrado) ───────── */
         .footer {
             background: #fdf5ed;
             border-top: 1px solid var(--borde);
             padding: 24px 20px;
             margin-top: 20px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 12px;
             color: var(--texto-claro);
             font-weight: 500;
-            gap: 16px;
         }
         .footer .admin {
             font-weight: 700;
@@ -544,6 +542,7 @@
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
         }
         .footer .contacto a {
@@ -580,19 +579,29 @@
             transform: translateX(-50%) translateY(-6px);
         }
 
-        @media (max-width: 700px) {
+        /* ─── MEJORAS RESPONSIVE ──────── */
+        @media (max-width: 768px) {
             .header {
-                padding: 12px 16px;
+                padding: 10px 16px;
+                gap: 10px;
             }
             .logo {
                 font-size: 1.2rem;
+                gap: 8px;
+            }
+            .logo-img {
+                width: 32px;
+                height: 32px;
             }
             .header-right {
-                gap: 8px;
+                gap: 10px;
             }
             .category-select {
                 padding: 8px 12px;
                 font-size: 0.8rem;
+                background-position: right 8px center;
+                padding-right: 28px;
+                max-width: 150px;
             }
             .cart-btn {
                 padding: 8px 14px;
@@ -601,26 +610,47 @@
             .cart-panel {
                 width: 100%;
                 max-width: 100vw;
-                border-radius: 20px 20px 0 0;
-                top: auto;
-                bottom: 0;
-                height: 85vh;
-                transform: translateY(100%);
-                transition: transform 0.4s ease;
+                height: 100vh;
+                border-radius: 0;
+                top: 0;
+                bottom: auto;
+                transform: translateX(100%);
             }
             .cart-panel.open {
-                transform: translateY(0);
+                transform: translateX(0);
             }
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 12px;
             }
             .product-card img {
                 height: 120px;
             }
-            .footer {
-                flex-direction: column;
-                text-align: center;
+            .seccion h2 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .product-card img {
+                height: 110px;
+            }
+            .product-info {
+                padding: 10px 8px;
+            }
+            .product-name {
+                font-size: 0.9rem;
+            }
+            .add-to-cart {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+            .header-right {
+                flex-grow: 1;
+                justify-content: flex-end;
             }
         }
     </style>
@@ -630,11 +660,11 @@
     <!-- ═══════════ HEADER ═══════════ -->
     <header class="header">
         <div class="logo">
-            <div class="icono">🥩</div>
+            <!-- CAMBIA ESTA IMAGEN POR TU LOGO REAL -->
+            <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23D35400'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='white' font-size='18' font-weight='bold'%3ELPS%3C/text%3E%3C/svg%3E" alt="Logo La Perla del Sur">
             Combos La Perla del Sur
         </div>
         <div class="header-right">
-            <!-- Menú de categorías -->
             <select class="category-select" id="categorySelect">
                 <option value="todas">📋 Todas las categorías</option>
                 <option value="carnicos">🥩 Cárnicos</option>
@@ -644,7 +674,6 @@
                 <option value="confituras">🍯 Confituras</option>
                 <option value="otros">📦 Otros</option>
             </select>
-            <!-- Botón carrito -->
             <div class="cart-btn" id="cartToggle">
                 🛒 Mi pedido
                 <span class="cart-badge" id="cartBadge"></span>
@@ -693,6 +722,11 @@
                 <label>🏘️ Municipio</label>
                 <select id="municipioSelect"><option value="">Selecciona tu municipio</option></select>
             </div>
+            <!-- NUEVO: Select de Consejo Popular -->
+            <div class="form-group" id="consejoGroup" style="display:none;">
+                <label>📍 Consejo Popular</label>
+                <select id="consejoSelect"><option value="">Selecciona tu consejo popular</option></select>
+            </div>
         </div>
 
         <!-- Dirección exacta -->
@@ -727,7 +761,7 @@
         </section>
     </main>
 
-    <!-- FOOTER con contactos -->
+    <!-- FOOTER con contactos centrados -->
     <footer class="footer">
         <div class="admin">
             Administrado por <span>neXo</span> © Combos La Perla del Sur
@@ -748,7 +782,7 @@
             // ══════════════════════════════════════
             const WHATSAPP_NUMBER = '5355415537';
 
-            // Costos de envío por municipio
+            // Costos de envío por municipio (se mantiene)
             const municipioCostos = {
                 'Aguada de Pasajeros': 3.00,
                 'Abreus': 3.50,
@@ -767,6 +801,17 @@
                 'San Fernando','La Marítima'
             ];
 
+            // ═══════ CONSEJOS POPULARES POR MUNICIPIO ═══════
+            const consejosPopulares = {
+                'Aguada de Pasajeros': ['María Victoria','Federal','Primero de Mayo','Real Campiña','Managuaco','La Torula','La Libertad'],
+                'Abreus': ['Constancia','Horquita','Yaguaramas','Charca','Cieneguita'], // lista parcial
+                'Cruces': ['El No-Chicharrones','Potrerillo','Paradero de Camarones','San José'],
+                'Cumanayagua': ['Sierrita','Breñas','Crespo','Barajagua','Crucesitas','Camilo Cienfuegos','Arimao','Sopapo','Cuatro Vientos','Napoleón Diego','Rafelito','Las Brisas','Las Moscas'],
+                'Lajas': ['Lajas Norte','Lajas Sur','Ajuria','Barrio Piragua','La Modelo','Caracas','Ramón Balboa'],
+                'Palmira': ['Palmira Sur','Palmira Norte','Arriete-Ciego Montero','Espartaco','Elpidio Gómez','San Fernando de Camarones'],
+                'Rodas': ['Rodas I','14 de Julio']
+            };
+
             // ══════════════════════════════════════
             // PRODUCTOS (con categoría)
             // ══════════════════════════════════════
@@ -777,7 +822,7 @@
                     peso: '2 libras',
                     precio: 6.50,
                     descuento: 0,
-                    categoria: 'carnicos',   // ← CATEGORÍA
+                    categoria: 'carnicos',
                     img: 'https://picsum.photos/seed/cerdo/400/300'
                 },
                 {
@@ -895,6 +940,8 @@
             const municipioContainer = document.getElementById('municipioContainer');
             const repartoSelect = document.getElementById('repartoSelect');
             const municipioSelect = document.getElementById('municipioSelect');
+            const consejoGroup = document.getElementById('consejoGroup');
+            const consejoSelect = document.getElementById('consejoSelect');
             const freeDeliveryMsg = document.getElementById('freeDeliveryMsg');
             const direccionExactaInput = document.getElementById('direccionExactaInput');
             const nombreInput = document.getElementById('nombreInput');
@@ -904,19 +951,35 @@
             const categorySelect = document.getElementById('categorySelect');
             const productosGrid = document.getElementById('productosGrid');
             const combosGrid = document.getElementById('combosGrid');
-            const productosSeccion = document.getElementById('productosSeccion');
             const combosSeccion = document.getElementById('combosSeccion');
 
-            // Llenar selects de dirección
+            // Llenar repartos
             repartos.forEach(r => repartoSelect.add(new Option(r, r)));
+            // Llenar municipios
             Object.keys(municipioCostos).forEach(m => municipioSelect.add(new Option(m, m)));
+
+            // Manejar cambio de municipio -> llenar consejos populares
+            municipioSelect.addEventListener('change', () => {
+                const mun = municipioSelect.value;
+                consejoSelect.innerHTML = '<option value="">Selecciona tu consejo popular</option>';
+                if (mun && consejosPopulares[mun]) {
+                    consejosPopulares[mun].forEach(cp => {
+                        consejoSelect.add(new Option(cp, cp));
+                    });
+                    consejoGroup.style.display = 'block';
+                } else {
+                    consejoGroup.style.display = 'none';
+                }
+                consejoSelect.value = '';
+                updateTotals();
+                updateSendBtn();
+            });
 
             // Precio con descuento
             function precioConDescuento(precio, descuento) {
                 return descuento > 0 ? precio * (1 - descuento / 100) : precio;
             }
 
-            // Renderizar una tarjeta de producto/combo
             function crearCard(item, esCombo = false) {
                 const div = document.createElement('div');
                 div.className = 'product-card';
@@ -940,7 +1003,6 @@
                 return div;
             }
 
-            // Renderizar todos los productos (sin filtrar)
             function renderAllProducts() {
                 productosGrid.innerHTML = '';
                 combosGrid.innerHTML = '';
@@ -948,7 +1010,6 @@
                 combos.forEach(c => combosGrid.appendChild(crearCard(c, true)));
             }
 
-            // Filtrar productos por categoría
             function filterByCategory(categoria) {
                 productosGrid.innerHTML = '';
                 if (categoria === 'todas') {
@@ -964,12 +1025,7 @@
                 }
             }
 
-            // Evento del select de categorías
-            categorySelect.addEventListener('change', () => {
-                filterByCategory(categorySelect.value);
-            });
-
-            // Inicializar con todos
+            categorySelect.addEventListener('change', () => filterByCategory(categorySelect.value));
             renderAllProducts();
 
             // Abrir/cerrar carrito
@@ -994,6 +1050,8 @@
                 municipioContainer.classList.remove('active');
                 repartoSelect.value = '';
                 municipioSelect.value = '';
+                consejoSelect.innerHTML = '<option value="">Selecciona tu consejo popular</option>';
+                consejoGroup.style.display = 'none';
                 freeDeliveryMsg.style.display = 'none';
                 if (tipo === 'ciudad') ciudadContainer.classList.add('active');
                 else if (tipo === 'municipio') municipioContainer.classList.add('active');
@@ -1006,10 +1064,11 @@
                 updateTotals();
                 updateSendBtn();
             });
-            municipioSelect.addEventListener('change', () => {
-                updateTotals();
+            // El cambio de consejo popular solo afecta validación
+            consejoSelect.addEventListener('change', () => {
                 updateSendBtn();
             });
+            // El cambio de municipio ya está manejado arriba (también updateSendBtn)
 
             // Carrito
             function addItem(item, esCombo) {
@@ -1104,8 +1163,12 @@
 
             function updateSendBtn() {
                 const tipo = tipoEnvioSelect.value;
-                const direccionOk = (tipo === 'ciudad' && repartoSelect.value) ||
-                                    (tipo === 'municipio' && municipioSelect.value);
+                let direccionOk = false;
+                if (tipo === 'ciudad' && repartoSelect.value) {
+                    direccionOk = true;
+                } else if (tipo === 'municipio' && municipioSelect.value && consejoSelect.value) {
+                    direccionOk = true;
+                }
                 const ok = cart.length > 0 &&
                            direccionExactaInput.value.trim().length >= 3 &&
                            nombreInput.value.trim().length >= 2 &&
@@ -1118,7 +1181,7 @@
             telefonoInput.addEventListener('input', updateSendBtn);
             direccionExactaInput.addEventListener('input', updateSendBtn);
 
-            // Añadir productos (delegado)
+            // Añadir productos
             document.addEventListener('click', (e) => {
                 if (e.target.classList.contains('add-to-cart')) {
                     const id = e.target.dataset.id;
@@ -1126,7 +1189,6 @@
                     const fuente = esCombo ? combos : productos;
                     const item = fuente.find(p => p.id === id);
                     if (item) addItem(item, esCombo);
-                    // Abrir el carrito automáticamente para comodidad
                     openCart();
                 }
             });
@@ -1140,14 +1202,18 @@
                 toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
             }
 
-            // Enviar factura por WhatsApp (sin descarga)
+            // Generar factura y enviar por WhatsApp
             function generarFacturaTexto() {
                 const nombre = nombreInput.value.trim();
                 const telefono = telefonoInput.value.trim();
                 const tipo = tipoEnvioSelect.value;
-                const direccion = tipo === 'ciudad' ? repartoSelect.value : municipioSelect.value;
+                let direccionCompleta = '';
+                if (tipo === 'ciudad') {
+                    direccionCompleta = `Reparto: ${repartoSelect.value}`;
+                } else if (tipo === 'municipio') {
+                    direccionCompleta = `Municipio: ${municipioSelect.value}, Consejo Popular: ${consejoSelect.value}`;
+                }
                 const direccionExacta = direccionExactaInput.value.trim();
-                const tipoTexto = tipo === 'ciudad' ? 'Reparto Cienfuegos' : 'Municipio';
                 const subtotal = cart.reduce((sum, item) => sum + precioConDescuento(item.precio, item.descuento) * item.cantidad, 0);
                 const shipping = obtenerCostoEnvio();
                 const total = subtotal + shipping;
@@ -1155,7 +1221,7 @@
                 let texto = `📄 *FACTURA - Combos La Perla del Sur*\n\n`;
                 texto += `*Cliente:* ${nombre}\n`;
                 texto += `*Teléfono:* ${telefono}\n`;
-                texto += `*Dirección:* ${direccion} (${tipoTexto})\n`;
+                texto += `*Dirección:* ${direccionCompleta}\n`;
                 texto += `*Dirección exacta:* ${direccionExacta}\n`;
                 texto += `*Fecha:* ${new Date().toLocaleDateString('es-CU')}\n\n`;
                 texto += `*PRODUCTOS:*\n`;
