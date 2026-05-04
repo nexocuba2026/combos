@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabores Cienfuegos — Tienda Online</title>
+    <title>Combos La Perla del Sur</title>
     <style>
         :root {
-            --bg: #fafaf8;
-            --surface: #ffffff;
-            --text: #2d2d2b;
-            --text-light: #6b6b66;
-            --accent: #3a7d44;
-            --accent-hover: #2e6636;
-            --accent-light: #e8f5e9;
-            --border: #e8e8e4;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
-            --radius-sm: 10px;
-            --radius: 14px;
-            --radius-lg: 18px;
-            --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --naranja: #E67E22;
+            --naranja-oscuro: #D35400;
+            --rojo: #C0392B;
+            --rojo-claro: #E74C3C;
+            --caramelo: #A04000;
+            --crema: #FDF2E9;
+            --beige: #FAE5D3;
+            --marron-oscuro: #5D2E0C;
+            --texto: #2C1810;
+            --texto-claro: #6E4B3A;
+            --blanco: #FFF9F5;
+            --sombra: 0 8px 30px rgba(160, 64, 0, 0.12);
+            --borde: #E8D5C4;
+            --radio: 16px;
+            --transicion: 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
 
         * {
@@ -30,14 +29,10 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: var(--font);
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--crema);
+            color: var(--texto);
             line-height: 1.5;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
@@ -45,515 +40,488 @@
 
         /* ─── HEADER ─────────────────────── */
         .header {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 28px;
+            background: rgba(255, 249, 245, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--borde);
+            padding: 14px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            background: rgba(255, 255, 255, 0.92);
+            z-index: 200;
+            box-shadow: 0 2px 12px rgba(160, 64, 0, 0.08);
         }
-
-        .header-logo {
+        .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 700;
-            font-size: 1.35rem;
-            letter-spacing: -0.4px;
-            color: var(--accent);
-            cursor: default;
-            user-select: none;
+            font-size: 1.4rem;
+            color: var(--naranja-oscuro);
+            letter-spacing: -0.5px;
         }
-        .header-logo .icon {
+        .logo .icono {
+            background: var(--naranja-oscuro);
+            color: white;
             width: 38px;
             height: 38px;
-            background: var(--accent);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            color: #fff;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 10px rgba(211, 84, 0, 0.3);
         }
-
-        .cart-trigger {
+        .cart-btn {
             position: relative;
             cursor: pointer;
-            background: var(--surface);
-            border: 1.5px solid var(--border);
+            background: var(--blanco);
+            border: 1.5px solid var(--borde);
             border-radius: 50px;
-            padding: 10px 18px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             gap: 8px;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: var(--transition);
-            color: var(--text);
+            transition: var(--transicion);
+            color: var(--texto);
             user-select: none;
         }
-        .cart-trigger:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-md);
+        .cart-btn:hover {
+            border-color: var(--naranja);
+            box-shadow: 0 4px 14px rgba(230, 126, 34, 0.2);
             transform: translateY(-1px);
         }
-        .cart-trigger .badge {
-            background: var(--accent);
-            color: #fff;
-            width: 26px;
-            height: 26px;
+        .cart-badge {
+            background: var(--rojo);
+            color: white;
+            min-width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            transition: var(--transition);
+            transition: 0.2s;
         }
-        .cart-trigger .badge:empty {
+        .cart-badge:empty {
             display: none;
         }
-        .cart-trigger .badge.pulse {
-            animation: pulseBadge 0.4s ease;
+        .cart-badge.pulse {
+            animation: pulse 0.35s ease;
         }
-        @keyframes pulseBadge {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.35);
-            }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
         }
 
-        /* ─── MAIN LAYOUT ──────────────── */
-        .main-container {
-            display: flex;
-            gap: 28px;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 28px 24px 40px;
-            min-height: calc(100vh - 180px);
-        }
-
-        /* ─── PRODUCTOS ────────────────── */
-        .products-section {
-            flex: 1 1 62%;
-            min-width: 0;
-        }
-        .products-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 18px;
-        }
-        .product-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 20px 18px 18px;
-            border: 1.5px solid var(--border);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+        /* ─── PANEL DEL CARRITO (OCULTO) ─── */
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            max-width: 92vw;
+            height: 100vh;
+            background: var(--blanco);
+            box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+            z-index: 300;
+            transform: translateX(105%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
+            padding: 24px 20px 20px;
+            overflow-y: auto;
+            border-left: 1px solid var(--borde);
+        }
+        .cart-panel.open {
+            transform: translateX(0);
+        }
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 299;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .cart-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cart-panel-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
-            cursor: default;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 18px;
         }
-        .product-card:hover {
-            border-color: #ccc;
-            box-shadow: var(--shadow-md);
-            transform: translateY(-3px);
-        }
-        .product-card .emoji {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            transition: var(--transition);
-        }
-        .product-card:hover .emoji {
-            transform: scale(1.12) rotate(-4deg);
-        }
-        .product-card .name {
-            font-weight: 650;
-            font-size: 1rem;
-            margin-bottom: 4px;
-            color: var(--text);
-            letter-spacing: -0.2px;
-        }
-        .product-card .desc {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-        .product-card .price {
+        .cart-panel-header h3 {
+            font-size: 1.3rem;
             font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 14px;
+            color: var(--naranja-oscuro);
         }
-        .product-card .add-btn {
-            background: var(--accent);
-            color: #fff;
+        .close-cart {
+            background: none;
             border: none;
-            padding: 9px 22px;
-            border-radius: 50px;
+            font-size: 1.8rem;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.88rem;
-            letter-spacing: -0.2px;
-            transition: var(--transition);
-            width: 100%;
-            font-family: var(--font);
+            color: var(--texto-claro);
+            padding: 0 8px;
+            border-radius: 8px;
+            transition: var(--transicion);
         }
-        .product-card .add-btn:hover {
-            background: var(--accent-hover);
-            box-shadow: 0 4px 14px rgba(58, 125, 68, 0.35);
-            transform: translateY(-1px);
-        }
-        .product-card .add-btn:active {
-            transform: scale(0.96);
-            transition: 0.08s;
+        .close-cart:hover {
+            background: #fbe9e7;
+            color: var(--rojo);
         }
 
-        /* ─── PANEL DERECHO ────────────── */
-        .order-panel {
-            flex: 0 0 370px;
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            border: 1.5px solid var(--border);
-            box-shadow: var(--shadow-md);
-            padding: 24px 22px 22px;
-            position: sticky;
-            top: 100px;
-            align-self: flex-start;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            max-height: calc(100vh - 140px);
-            overflow-y: auto;
-        }
-        .order-panel h3 {
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: -0.3px;
-            text-align: center;
-            color: var(--text);
-            margin: 0;
-        }
-        .cart-items-list {
+        /* ─── LISTA DE ITEMS ────────────── */
+        .cart-items {
             list-style: none;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            min-height: 60px;
-            max-height: 220px;
+            gap: 12px;
+            min-height: 100px;
             overflow-y: auto;
+            margin-bottom: 18px;
             padding-right: 4px;
         }
-        .cart-items-list:empty::after {
-            content: 'Aún no hay productos';
+        .cart-items:empty::after {
+            content: 'Tu carrito está vacío';
             display: block;
             text-align: center;
-            color: #aaa;
-            font-size: 0.9rem;
-            padding: 20px 0;
+            color: #b39b8a;
+            padding: 30px 0;
             font-style: italic;
         }
         .cart-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: #f9faf9;
-            border-radius: var(--radius-sm);
-            padding: 10px 12px;
-            gap: 8px;
-            font-size: 0.9rem;
+            gap: 10px;
+            background: #fdf6f0;
+            border-radius: 12px;
+            padding: 10px;
             border: 1px solid transparent;
-            transition: var(--transition);
+            transition: var(--transicion);
         }
         .cart-item:hover {
-            border-color: #e0e0e0;
+            border-color: #edd9c6;
         }
-        .cart-item .item-info {
+        .cart-item-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #fae1cf;
+        }
+        .cart-item-info {
             flex: 1;
             min-width: 0;
         }
-        .cart-item .item-name {
+        .cart-item-name {
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .cart-item .item-qty {
-            color: var(--text-light);
+        .cart-item-qty {
             font-size: 0.75rem;
+            color: var(--texto-claro);
         }
-        .cart-item .item-price {
+        .cart-item-price {
             font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--accent);
+            color: var(--rojo);
             white-space: nowrap;
         }
-        .cart-item .remove-btn {
+        .cart-item-remove {
             background: none;
             border: none;
+            color: #a04040;
             cursor: pointer;
-            color: #c0392b;
-            font-size: 1.1rem;
-            padding: 2px 6px;
-            border-radius: 50%;
-            transition: var(--transition);
-            line-height: 1;
+            font-size: 1.2rem;
             opacity: 0.6;
+            transition: var(--transicion);
         }
-        .cart-item .remove-btn:hover {
+        .cart-item-remove:hover {
             opacity: 1;
-            background: #fdecea;
+            background: #fde8e8;
+            border-radius: 50%;
         }
 
+        /* ─── TOTALES ──────────────────── */
         .totals {
+            border-top: 1.5px dashed var(--borde);
+            border-bottom: 1.5px dashed var(--borde);
+            padding: 14px 0;
+            margin-bottom: 18px;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            padding: 12px 0;
-            border-top: 1.5px dashed var(--border);
-            border-bottom: 1.5px dashed var(--border);
         }
         .totals .row {
             display: flex;
             justify-content: space-between;
             font-size: 0.9rem;
-            color: var(--text-light);
         }
         .totals .row.total {
             font-weight: 700;
             font-size: 1.15rem;
-            color: var(--text);
+            color: var(--marron-oscuro);
         }
-        .totals .row .free-badge {
+        .free-badge {
             background: #d4edda;
             color: #1e7b34;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 2px 10px;
+            padding: 2px 12px;
             border-radius: 20px;
-            letter-spacing: 0.3px;
-            animation: fadeInUp 0.35s ease;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            font-size: 0.75rem;
+            font-weight: 700;
         }
 
         /* ─── FORMULARIO ──────────────── */
         .form-group {
+            margin-bottom: 14px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
         .form-group label {
             font-weight: 600;
-            font-size: 0.82rem;
-            letter-spacing: -0.1px;
-            color: var(--text);
+            font-size: 0.78rem;
             text-transform: uppercase;
-            opacity: 0.7;
+            color: var(--texto-claro);
+            letter-spacing: 0.5px;
         }
         .form-group input,
         .form-group select {
-            font-family: var(--font);
+            font-family: inherit;
             padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            border: 1.5px solid var(--border);
+            border: 1.5px solid var(--borde);
+            border-radius: 10px;
+            background: #fffcf7;
             font-size: 0.9rem;
-            background: #fafaf8;
-            transition: var(--transition);
-            width: 100%;
-            color: var(--text);
-            -webkit-appearance: none;
-            appearance: none;
+            transition: var(--transicion);
+            color: var(--texto);
         }
         .form-group select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b6b66' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236E4B3A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 14px center;
+            background-position: right 12px center;
             padding-right: 36px;
             cursor: pointer;
         }
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(58, 125, 68, 0.08);
-            background: #fff;
+            border-color: var(--naranja);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
         }
         .free-delivery-msg {
             background: #d4edda;
             color: #1e7b34;
-            padding: 8px 14px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.82rem;
-            text-align: center;
-            animation: fadeInUp 0.4s ease;
-            letter-spacing: 0.1px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 6px 0;
         }
 
-        .send-btn {
+        .whatsapp-btn {
             background: #25D366;
-            color: #fff;
+            color: white;
             border: none;
-            padding: 13px 20px;
+            padding: 14px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 700;
             font-size: 1rem;
-            letter-spacing: -0.2px;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            font-family: var(--font);
-            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+            transition: var(--transicion);
+            box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+            margin-top: 8px;
+            width: 100%;
+            letter-spacing: -0.3px;
         }
-        .send-btn:hover {
+        .whatsapp-btn:hover {
             background: #1ebe5b;
-            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
             transform: translateY(-2px);
         }
-        .send-btn:active {
-            transform: scale(0.96);
-            transition: 0.08s;
-        }
-        .send-btn:disabled {
+        .whatsapp-btn:disabled {
             background: #b0b0b0;
-            cursor: not-allowed;
             box-shadow: none;
+            cursor: not-allowed;
             transform: none;
+        }
+
+        /* ─── PRODUCTOS ──────────────── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 28px 20px 20px;
+        }
+        .seccion {
+            margin-bottom: 40px;
+        }
+        .seccion h2 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--marron-oscuro);
+            margin-bottom: 18px;
+            padding-left: 6px;
+            border-left: 5px solid var(--naranja);
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+        }
+        .product-card {
+            background: var(--blanco);
+            border-radius: var(--radio);
+            overflow: hidden;
+            border: 1px solid var(--borde);
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 34px rgba(160, 64, 0, 0.16);
+        }
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: #fae1cf;
+        }
+        .product-info {
+            padding: 14px 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .product-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--texto);
+        }
+        .product-weight {
+            font-size: 0.8rem;
+            color: var(--texto-claro);
+            font-weight: 500;
+        }
+        .product-desc {
+            font-size: 0.75rem;
+            color: #8b6f5e;
+            margin-top: 2px;
+        }
+        .product-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--rojo);
+            margin-top: auto;
+        }
+        .add-to-cart {
+            background: var(--naranja);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transicion);
+            margin-top: 8px;
+            font-size: 0.85rem;
+            letter-spacing: -0.2px;
+        }
+        .add-to-cart:hover {
+            background: var(--naranja-oscuro);
+            box-shadow: 0 4px 14px rgba(211, 84, 0, 0.4);
+        }
+        .combo-badge {
+            background: var(--rojo);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ─── FOOTER ───────────────────── */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--texto-claro);
+            font-weight: 500;
+            border-top: 1px solid var(--borde);
+            background: #fdf5ed;
+            margin-top: 20px;
+        }
+        .footer span {
+            font-weight: 700;
+            color: var(--naranja-oscuro);
         }
 
         /* ─── TOAST ────────────────────── */
         .toast {
             position: fixed;
-            bottom: 28px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1a1a1a;
-            color: #fff;
+            background: #2c1810;
+            color: white;
             padding: 12px 24px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.9rem;
             z-index: 999;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s, transform 0.3s;
         }
         .toast.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(-4px);
+            transform: translateX(-50%) translateY(-6px);
         }
 
-        /* ─── RESPONSIVE ──────────────── */
-        @media (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-                padding: 16px 12px 30px;
-                gap: 20px;
+        @media (max-width: 700px) {
+            .cart-panel {
+                width: 100%;
+                max-width: 100vw;
+                border-radius: 20px 20px 0 0;
+                top: auto;
+                bottom: 0;
+                height: 85vh;
+                transform: translateY(100%);
+                transition: transform 0.4s ease;
             }
-            .order-panel {
-                flex: 0 0 auto;
-                position: static;
-                max-height: none;
-                border-radius: var(--radius);
-                padding: 18px 14px;
+            .cart-panel.open {
+                transform: translateY(0);
             }
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
                 gap: 12px;
             }
-            .product-card {
-                padding: 14px 10px 12px;
-            }
-            .product-card .emoji {
-                font-size: 2.2rem;
-            }
-            .product-card .name {
-                font-size: 0.85rem;
-            }
-            .product-card .price {
-                font-size: 1rem;
-            }
-            .product-card .add-btn {
-                font-size: 0.78rem;
-                padding: 8px 14px;
-            }
-            .header {
-                padding: 12px 16px;
-            }
-            .header-logo {
-                font-size: 1.1rem;
-            }
-            .header-logo .icon {
-                width: 30px;
-                height: 30px;
-                font-size: 1rem;
-                border-radius: 8px;
-            }
-            .cart-trigger {
-                padding: 8px 14px;
-                font-size: 0.82rem;
-            }
-        }
-        @media (max-width: 440px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            .product-card {
-                padding: 12px 8px 10px;
-                border-radius: var(--radius-sm);
-            }
-            .product-card .emoji {
-                font-size: 1.8rem;
-            }
-            .product-card .name {
-                font-size: 0.78rem;
-            }
-            .product-card .price {
-                font-size: 0.9rem;
-            }
-            .product-card .add-btn {
-                font-size: 0.72rem;
-                padding: 7px 10px;
-            }
-            .order-panel {
-                padding: 14px 10px;
-                border-radius: var(--radius-sm);
+            .product-card img {
+                height: 120px;
             }
         }
     </style>
@@ -562,197 +530,143 @@
 
     <!-- ═══════════ HEADER ═══════════ -->
     <header class="header">
-        <div class="header-logo">
-            <span class="icon">🥗</span>
-            Sabores Cienfuegos
+        <div class="logo">
+            <div class="icono">🥩</div>
+            Combos La Perla del Sur
         </div>
-        <div class="cart-trigger" id="cartTrigger" title="Ver carrito">
-            🛒 Carrito
-            <span class="badge" id="cartBadge"></span>
+        <div class="cart-btn" id="cartToggle">
+            🛒 Mi pedido
+            <span class="cart-badge" id="cartBadge"></span>
         </div>
     </header>
 
-    <!-- ═══════════ TOAST ═══════════ -->
-    <div class="toast" id="toast"></div>
+    <!-- ═══════════ OVERLAY CARRITO ═══════════ -->
+    <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- ═══════════ MAIN ═══════════ -->
-    <div class="main-container">
+    <!-- ═══════════ PANEL CARRITO ═══════════ -->
+    <aside class="cart-panel" id="cartPanel">
+        <div class="cart-panel-header">
+            <h3>🛒 Tu Pedido</h3>
+            <button class="close-cart" id="closeCart">✕</button>
+        </div>
+        <ul class="cart-items" id="cartItems"></ul>
+        <div class="totals">
+            <div class="row"><span>Subtotal</span><span id="subtotalDisplay">$0.00</span></div>
+            <div class="row"><span>Envío</span><span id="shippingDisplay">—</span></div>
+            <div class="row total"><span>TOTAL</span><span id="totalDisplay">$0.00</span></div>
+        </div>
+
+        <div class="form-group">
+            <label>📍 Reparto en Cienfuegos (GRATIS)</label>
+            <select id="repartoSelect"><option value="">Selecciona...</option></select>
+        </div>
+        <div id="freeDeliveryMsg" class="free-delivery-msg" style="display:none;">✅ Domicilio GRATIS</div>
+
+        <div class="form-group">
+            <label>🏘️ Municipio (+$3.00 envío)</label>
+            <select id="municipioSelect"><option value="">Selecciona...</option></select>
+        </div>
+        <div class="form-group">
+            <label>👤 Nombre completo</label>
+            <input type="text" id="nombreInput" placeholder="Ej: María García">
+        </div>
+        <div class="form-group">
+            <label>📱 Teléfono</label>
+            <input type="tel" id="telefonoInput" placeholder="+5355123456">
+        </div>
+
+        <button class="whatsapp-btn" id="sendBtn" disabled>
+            💬 Enviar pedido por WhatsApp + factura
+        </button>
+    </aside>
+
+    <!-- ═══════════ CONTENIDO PRINCIPAL ═══════════ -->
+    <main class="container">
 
         <!-- PRODUCTOS -->
-        <section class="products-section">
-            <h2>🍽️ Nuestros Productos</h2>
-            <div class="products-grid" id="productsGrid">
-                <!-- Se generan con JS -->
-            </div>
+        <section class="seccion">
+            <h2>🥩 Productos</h2>
+            <div class="products-grid" id="productosGrid"></div>
         </section>
 
-        <!-- PANEL DE PEDIDO -->
-        <aside class="order-panel" id="orderPanel">
-            <h3>📋 Tu Pedido</h3>
-            <ul class="cart-items-list" id="cartItemsList"></ul>
-            <div class="totals">
-                <div class="row">
-                    <span>Subtotal</span>
-                    <span id="subtotalDisplay">$0.00</span>
-                </div>
-                <div class="row">
-                    <span>Envío</span>
-                    <span id="shippingDisplay">—</span>
-                </div>
-                <div class="row total">
-                    <span>TOTAL</span>
-                    <span id="totalDisplay">$0.00</span>
-                </div>
-            </div>
+        <!-- COMBOS -->
+        <section class="seccion">
+            <h2>🔥 Combos</h2>
+            <div class="products-grid" id="combosGrid"></div>
+        </section>
+    </main>
 
-            <!-- DIRECCIÓN: REPARTO -->
-            <div class="form-group">
-                <label for="repartoSelect">📍 Reparto en Cienfuegos</label>
-                <select id="repartoSelect">
-                    <option value="">— Selecciona tu reparto —</option>
-                </select>
-            </div>
-            <div class="free-delivery-msg" id="freeDeliveryMsg" style="display:none;">
-                ✅ ¡Domicilio GRATIS!
-            </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        Administrado por <span>neXo</span> © Combos La Perla del Sur
+    </footer>
 
-            <!-- DIRECCIÓN: MUNICIPIO -->
-            <div class="form-group">
-                <label for="municipioSelect">🏘️ Municipio (con costo de envío)</label>
-                <select id="municipioSelect">
-                    <option value="">— Selecciona tu municipio —</option>
-                </select>
-            </div>
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
 
-            <!-- DATOS DEL CLIENTE -->
-            <div class="form-group">
-                <label for="nombreInput">👤 Nombre completo</label>
-                <input type="text" id="nombreInput" placeholder="Ej: María García Pérez" autocomplete="name">
-            </div>
-            <div class="form-group">
-                <label for="telefonoInput">📱 Número de teléfono</label>
-                <input type="tel" id="telefonoInput" placeholder="Ej: +5355123456" autocomplete="tel">
-            </div>
-
-            <!-- BOTÓN ENVIAR -->
-            <button class="send-btn" id="sendBtn" disabled>
-                <span>💬</span> Enviar Pedido por WhatsApp
-            </button>
-        </aside>
-    </div>
-
-    <!-- ═══════════ SCRIPTS ═══════════ -->
     <script>
         (function() {
-            // ─── CONFIGURACIÓN ──────────────────
             const WHATSAPP_NUMBER = '5355415537';
-            const SHIPPING_COST_MUNICIPIO = 3.00; // Costo de envío para municipios (USD)
+            const SHIPPING_COST = 3.00;
 
-            // Repartos de la ciudad de Cienfuegos (domicilio GRATIS)
-            const repartosCienfuegos = [
-                'Centro Histórico',
-                'Punta Gorda',
-                'La Gloria',
-                'Reina',
-                'Pastorita',
-                'Tulipán',
-                'Paraíso',
-                'Buena Vista',
-                'Caonao',
-                'Junco Sur',
-                'San Lázaro',
-                'La Juanita',
-                'Hermanas Giralt',
-                'Los Pinitos',
-                'La Campana',
-                'El Cerro',
-                'Las Minas',
-                'San Fernando',
-                'La Marítima',
+            // Repartos y municipios
+            const repartos = [
+                'Centro Histórico','Punta Gorda','La Gloria','Reina','Pastorita','Tulipán',
+                'Paraíso','Buena Vista','Caonao','Junco Sur','San Lázaro','La Juanita',
+                'Hermanas Giralt','Los Pinitos','La Campana','El Cerro','Las Minas',
+                'San Fernando','La Marítima'
+            ];
+            const municipios = [
+                'Aguada de Pasajeros','Abreus','Cruces','Cumanayagua','Lajas','Palmira','Rodas'
             ];
 
-            // Municipios de la provincia Cienfuegos (con costo de envío)
-            const municipiosCienfuegos = [
-                'Aguada de Pasajeros',
-                'Abreus',
-                'Cruces',
-                'Cumanayagua',
-                'Lajas',
-                'Palmira',
-                'Rodas',
+            // Productos individuales
+            const productos = [
+                { id: 'p1', nombre: 'Muzlo de cerdo', peso: '2 libras', precio: 6.50, img: 'https://picsum.photos/seed/cerdo/400/300' },
+                { id: 'p2', nombre: 'Aceite vegetal', peso: '1 litro', precio: 3.20, img: 'https://picsum.photos/seed/aceite/400/300' },
+                { id: 'p3', nombre: 'Arroz', peso: '5 libras', precio: 4.00, img: 'https://picsum.photos/seed/arroz/400/300' },
+                { id: 'p4', nombre: 'Frijoles negros', peso: '2 libras', precio: 3.50, img: 'https://picsum.photos/seed/frijoles/400/300' },
+                { id: 'p5', nombre: 'Azúcar blanca', peso: '4 libras', precio: 2.80, img: 'https://picsum.photos/seed/azucar/400/300' },
+                { id: 'p6', nombre: 'Refresco lata', peso: '355 ml', precio: 1.50, img: 'https://picsum.photos/seed/refresco/400/300' },
+                { id: 'p7', nombre: 'Huevos (paquete 12)', peso: '12 unidades', precio: 4.20, img: 'https://picsum.photos/seed/huevos/400/300' },
+                { id: 'p8', nombre: 'Pan de molde', peso: '500 g', precio: 2.30, img: 'https://picsum.photos/seed/pan/400/300' },
             ];
 
-            // Productos disponibles
-            const productos = [{
-                id: 1,
-                emoji: '🍕',
-                nombre: 'Pizza Familiar',
-                desc: 'Grande, 8 porciones, pepperoni',
-                precio: 8.00,
-            }, {
-                id: 2,
-                emoji: '🍔',
-                nombre: 'Hamburguesa Especial',
-                desc: 'Doble carne, queso, tocineta',
-                precio: 5.00,
-            }, {
-                id: 3,
-                emoji: '🍗',
-                nombre: 'Pollo Asado',
-                desc: 'Entero, marinado al horno',
-                precio: 10.00,
-            }, {
-                id: 4,
-                emoji: '🥗',
-                nombre: 'Ensalada César',
-                desc: 'Lechuga, crutones, parmesano',
-                precio: 4.50,
-            }, {
-                id: 5,
-                emoji: '🍝',
-                nombre: 'Lasagna',
-                desc: 'Carne, bechamel, gratinada',
-                precio: 7.00,
-            }, {
-                id: 6,
-                emoji: '🌮',
-                nombre: 'Tacos (3 uds)',
-                desc: 'Pastor, cebolla, cilantro',
-                precio: 6.00,
-            }, {
-                id: 7,
-                emoji: '🍣',
-                nombre: 'Sushi Roll',
-                desc: '8 piezas, salmón y aguacate',
-                precio: 9.00,
-            }, {
-                id: 8,
-                emoji: '🌯',
-                nombre: 'Wrap de Pollo',
-                desc: 'Pollo, verduras, salsa ranch',
-                precio: 5.50,
-            }, {
-                id: 9,
-                emoji: '🧁',
-                nombre: 'Cupcakes (4 uds)',
-                desc: 'Vainilla, frosting de chocolate',
-                precio: 6.50,
-            }, {
-                id: 10,
-                emoji: '🍹',
-                nombre: 'Jugo Natural 1L',
-                desc: 'Mango, piña o guayaba',
-                precio: 3.50,
-            }, ];
+            // Combos (varios productos unidos)
+            const combos = [
+                {
+                    id: 'c1',
+                    nombre: 'Combo Familiar',
+                    incluye: 'Muzlo de cerdo (2 lb) + Arroz (5 lb) + Frijoles (2 lb) + Aceite (1 L)',
+                    precio: 14.00,
+                    img: 'https://picsum.photos/seed/combo1/400/300'
+                },
+                {
+                    id: 'c2',
+                    nombre: 'Combo Desayuno',
+                    incluye: 'Huevos (12) + Pan de molde + Refresco (2 latas) + Azúcar (2 lb)',
+                    precio: 8.50,
+                    img: 'https://picsum.photos/seed/combo2/400/300'
+                },
+                {
+                    id: 'c3',
+                    nombre: 'Super Combo Ahorro',
+                    incluye: 'Muzlo de cerdo (3 lb) + Arroz (10 lb) + Frijoles (4 lb) + Aceite (2 L) + Azúcar (4 lb)',
+                    precio: 22.00,
+                    img: 'https://picsum.photos/seed/combo3/400/300'
+                }
+            ];
 
-            // ─── ESTADO ─────────────────────────
-            const cart = []; // { id, nombre, precio, cantidad }
+            // Estado del carrito
+            let cart = []; // { id, nombre, precio, cantidad, img, esCombo? }
 
-            // ─── REFERENCIAS DOM ───────────────
-            const productsGrid = document.getElementById('productsGrid');
-            const cartItemsList = document.getElementById('cartItemsList');
+            // DOM
+            const cartToggle = document.getElementById('cartToggle');
+            const cartPanel = document.getElementById('cartPanel');
+            const cartOverlay = document.getElementById('cartOverlay');
+            const closeCart = document.getElementById('closeCart');
+            const cartItemsEl = document.getElementById('cartItems');
             const cartBadge = document.getElementById('cartBadge');
-            const cartTrigger = document.getElementById('cartTrigger');
             const subtotalDisplay = document.getElementById('subtotalDisplay');
             const shippingDisplay = document.getElementById('shippingDisplay');
             const totalDisplay = document.getElementById('totalDisplay');
@@ -763,133 +677,109 @@
             const telefonoInput = document.getElementById('telefonoInput');
             const sendBtn = document.getElementById('sendBtn');
             const toast = document.getElementById('toast');
-            const orderPanel = document.getElementById('orderPanel');
 
-            // ─── INICIALIZAR SELECTS ───────────
-            repartosCienfuegos.forEach(r => {
-                const opt = document.createElement('option');
-                opt.value = r;
-                opt.textContent = r;
-                repartoSelect.appendChild(opt);
-            });
-            municipiosCienfuegos.forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m;
-                opt.textContent = m;
-                municipioSelect.appendChild(opt);
-            });
+            // Llenar selects
+            repartos.forEach(r => repartoSelect.add(new Option(r, r)));
+            municipios.forEach(m => municipioSelect.add(new Option(m, m)));
 
-            // ─── RENDERIZAR PRODUCTOS ──────────
-            productos.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <span class="emoji">${p.emoji}</span>
-                    <span class="name">${p.nombre}</span>
-                    <span class="desc">${p.desc}</span>
-                    <span class="price">$${p.precio.toFixed(2)}</span>
-                    <button class="add-btn" data-id="${p.id}">＋ Añadir</button>
+            // Renderizar productos y combos
+            function crearCard(item, esCombo = false) {
+                const div = document.createElement('div');
+                div.className = 'product-card';
+                div.innerHTML = `
+                    <img src="${item.img}" alt="${item.nombre}" loading="lazy">
+                    <div class="product-info">
+                        ${esCombo ? '<span class="combo-badge">COMBO</span>' : ''}
+                        <span class="product-name">${item.nombre}</span>
+                        ${!esCombo ? `<span class="product-weight">${item.peso}</span>` : ''}
+                        <span class="product-desc">${esCombo ? item.incluye : ''}</span>
+                        <span class="product-price">$${item.precio.toFixed(2)}</span>
+                        <button class="add-to-cart" data-id="${item.id}" data-escombo="${esCombo}">＋ Añadir</button>
+                    </div>
                 `;
-                productsGrid.appendChild(card);
-            });
-
-            // ─── FUNCIONES DEL CARRITO ─────────
-            function findCartItem(id) {
-                return cart.find(item => item.id === id);
+                return div;
             }
 
-            function addToCart(id) {
-                const producto = productos.find(p => p.id === id);
-                if (!producto) return;
-                const existing = findCartItem(id);
+            const productosGrid = document.getElementById('productosGrid');
+            const combosGrid = document.getElementById('combosGrid');
+            productos.forEach(p => productosGrid.appendChild(crearCard(p, false)));
+            combos.forEach(c => combosGrid.appendChild(crearCard(c, true)));
+
+            // Abrir/cerrar carrito
+            function openCart() {
+                cartPanel.classList.add('open');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeCartPanel() {
+                cartPanel.classList.remove('open');
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            cartToggle.addEventListener('click', openCart);
+            closeCart.addEventListener('click', closeCartPanel);
+            cartOverlay.addEventListener('click', closeCartPanel);
+
+            // Funciones carrito
+            function addItem(item, esCombo = false) {
+                const existing = cart.find(i => i.id === item.id);
                 if (existing) {
-                    existing.cantidad += 1;
+                    existing.cantidad++;
                 } else {
                     cart.push({
-                        id: producto.id,
-                        nombre: producto.nombre,
-                        precio: producto.precio,
+                        id: item.id,
+                        nombre: item.nombre,
+                        precio: item.precio,
+                        img: item.img,
                         cantidad: 1,
+                        esCombo
                     });
                 }
                 renderCart();
                 pulseBadge();
-                showToast(`✅ ${producto.nombre} añadido al carrito`);
-                // Scroll suave al panel en móvil
-                if (window.innerWidth <= 900) {
-                    orderPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                showToast(`✅ ${item.nombre} añadido`);
             }
-
-            function removeFromCart(id) {
-                const idx = cart.findIndex(item => item.id === id);
-                if (idx !== -1) {
-                    const removed = cart[idx];
-                    cart.splice(idx, 1);
-                    renderCart();
-                    showToast(`❌ ${removed.nombre} eliminado`);
-                }
-            }
-
-            function getSubtotal() {
-                return cart.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
-            }
-
-            function getShippingCost() {
-                if (municipioSelect.value) return SHIPPING_COST_MUNICIPIO;
-                return 0;
-            }
-
-            function getTotal() {
-                return getSubtotal() + getShippingCost();
+            function removeItem(id) {
+                cart = cart.filter(i => i.id !== id);
+                renderCart();
+                showToast('Producto eliminado');
             }
 
             function renderCart() {
-                cartItemsList.innerHTML = '';
-                if (cart.length === 0) {
-                    cartItemsList.innerHTML = ''; // CSS muestra placeholder
-                } else {
-                    cart.forEach(item => {
-                        const li = document.createElement('li');
-                        li.className = 'cart-item';
-                        li.innerHTML = `
-                            <div class="item-info">
-                                <div class="item-name">${item.nombre}</div>
-                                <div class="item-qty">Cant: ${item.cantidad} × $${item.precio.toFixed(2)}</div>
-                            </div>
-                            <span class="item-price">$${(item.precio * item.cantidad).toFixed(2)}</span>
-                            <button class="remove-btn" data-id="${item.id}" title="Quitar">✕</button>
-                        `;
-                        cartItemsList.appendChild(li);
+                cartItemsEl.innerHTML = '';
+                cart.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'cart-item';
+                    li.innerHTML = `
+                        <img src="${item.img}" class="cart-item-img" alt="${item.nombre}">
+                        <div class="cart-item-info">
+                            <span class="cart-item-name">${item.nombre} ${item.esCombo ? '🔥' : ''}</span>
+                            <span class="cart-item-qty">Cant: ${item.cantidad} × $${item.precio.toFixed(2)}</span>
+                        </div>
+                        <span class="cart-item-price">$${(item.precio * item.cantidad).toFixed(2)}</span>
+                        <button class="cart-item-remove" data-id="${item.id}">✕</button>
+                    `;
+                    cartItemsEl.appendChild(li);
+                });
+                // Eventos eliminar
+                document.querySelectorAll('.cart-item-remove').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeItem(btn.dataset.id);
                     });
-                    // Event listeners para botones de eliminar
-                    cartItemsList.querySelectorAll('.remove-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const id = parseInt(btn.getAttribute('data-id'));
-                            removeFromCart(id);
-                        });
-                    });
-                }
+                });
                 updateTotals();
                 updateBadge();
-                updateSendButton();
+                updateSendBtn();
             }
 
             function updateTotals() {
-                const subtotal = getSubtotal();
-                const shipping = getShippingCost();
-                const total = getTotal();
+                const subtotal = cart.reduce((sum, i) => sum + i.precio * i.cantidad, 0);
+                const shipping = municipioSelect.value ? SHIPPING_COST : 0;
+                const total = subtotal + shipping;
                 subtotalDisplay.textContent = `$${subtotal.toFixed(2)}`;
-
                 if (shipping === 0 && (repartoSelect.value || cart.length > 0)) {
-                    if (repartoSelect.value) {
-                        shippingDisplay.innerHTML = '<span class="free-badge">GRATIS</span>';
-                    } else if (cart.length > 0 && !municipioSelect.value && !repartoSelect.value) {
-                        shippingDisplay.textContent = '—';
-                    } else {
-                        shippingDisplay.textContent = '$0.00';
-                    }
+                    shippingDisplay.innerHTML = repartoSelect.value ? '<span class="free-badge">GRATIS</span>' : '$0.00';
                 } else if (shipping > 0) {
                     shippingDisplay.textContent = `$${shipping.toFixed(2)}`;
                 } else {
@@ -899,13 +789,9 @@
             }
 
             function updateBadge() {
-                const totalItems = cart.reduce((sum, item) => sum + item.cantidad, 0);
-                cartBadge.textContent = totalItems > 0 ? totalItems : '';
-                if (totalItems === 0) {
-                    cartBadge.style.display = 'none';
-                } else {
-                    cartBadge.style.display = 'flex';
-                }
+                const totalItems = cart.reduce((sum, i) => sum + i.cantidad, 0);
+                cartBadge.textContent = totalItems || '';
+                cartBadge.style.display = totalItems ? 'flex' : 'none';
             }
 
             function pulseBadge() {
@@ -914,121 +800,99 @@
                 cartBadge.classList.add('pulse');
             }
 
-            function updateSendButton() {
-                const hasProducts = cart.length > 0;
-                const hasName = nombreInput.value.trim().length >= 2;
-                const hasPhone = telefonoInput.value.trim().length >= 8;
-                const hasAddress = repartoSelect.value || municipioSelect.value;
-                sendBtn.disabled = !(hasProducts && hasName && hasPhone && hasAddress);
+            function updateSendBtn() {
+                const ok = cart.length > 0 && nombreInput.value.trim().length >= 2 &&
+                           telefonoInput.value.trim().length >= 8 &&
+                           (repartoSelect.value || municipioSelect.value);
+                sendBtn.disabled = !ok;
             }
 
-            function updateFreeDeliveryMsg() {
-                if (repartoSelect.value) {
-                    freeDeliveryMsg.style.display = 'block';
-                } else {
-                    freeDeliveryMsg.style.display = 'none';
-                }
-            }
-
-            // ─── TOAST ─────────────────────────
-            let toastTimer;
-
-            function showToast(message) {
-                clearTimeout(toastTimer);
-                toast.textContent = message;
-                toast.classList.add('show');
-                toastTimer = setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2200);
-            }
-
-            // ─── EVENT LISTENERS ──────────────
-            productsGrid.addEventListener('click', (e) => {
-                const btn = e.target.closest('.add-btn');
-                if (!btn) return;
-                const id = parseInt(btn.getAttribute('data-id'));
-                addToCart(id);
-            });
-
-            // Al cambiar reparto, limpiar municipio y viceversa
             repartoSelect.addEventListener('change', () => {
-                if (repartoSelect.value) {
-                    municipioSelect.value = '';
-                }
-                updateFreeDeliveryMsg();
+                if (repartoSelect.value) municipioSelect.value = '';
+                freeDeliveryMsg.style.display = repartoSelect.value ? 'inline-block' : 'none';
                 updateTotals();
-                updateSendButton();
+                updateSendBtn();
             });
-
             municipioSelect.addEventListener('change', () => {
-                if (municipioSelect.value) {
-                    repartoSelect.value = '';
-                }
-                updateFreeDeliveryMsg();
+                if (municipioSelect.value) repartoSelect.value = '';
+                freeDeliveryMsg.style.display = 'none';
                 updateTotals();
-                updateSendButton();
+                updateSendBtn();
+            });
+            nombreInput.addEventListener('input', updateSendBtn);
+            telefonoInput.addEventListener('input', updateSendBtn);
+
+            // Añadir productos
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart')) {
+                    const id = e.target.dataset.id;
+                    const esCombo = e.target.dataset.escombo === 'true';
+                    const fuente = esCombo ? combos : productos;
+                    const item = fuente.find(p => p.id === id);
+                    if (item) addItem(item, esCombo);
+                }
             });
 
-            nombreInput.addEventListener('input', updateSendButton);
-            telefonoInput.addEventListener('input', updateSendButton);
+            // Toast
+            let toastTimer;
+            function showToast(msg) {
+                clearTimeout(toastTimer);
+                toast.textContent = msg;
+                toast.classList.add('show');
+                toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+            }
 
-            // Click en el trigger del carrito -> scroll al panel
-            cartTrigger.addEventListener('click', () => {
-                orderPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Pequeño highlight visual
-                orderPanel.style.boxShadow =
-                    '0 0 0 4px rgba(58,125,68,0.25), 0 4px 16px rgba(0,0,0,0.08)';
-                setTimeout(() => {
-                    orderPanel.style.boxShadow = '';
-                }, 800);
-            });
-
-            // ─── ENVIAR POR WHATSAPP ──────────
-            sendBtn.addEventListener('click', () => {
-                if (sendBtn.disabled) return;
+            // ENVIAR WHATSAPP + DESCARGA FACTURA
+            function generarFacturaTexto() {
                 const nombre = nombreInput.value.trim();
                 const telefono = telefonoInput.value.trim();
                 const direccion = repartoSelect.value || municipioSelect.value;
-                const tipoDireccion = repartoSelect.value ? 'Reparto (Cienfuegos ciudad)' :
-                    'Municipio';
-                const subtotal = getSubtotal();
-                const shipping = getShippingCost();
-                const total = getTotal();
-
-                let mensaje = `*🛒 NUEVO PEDIDO — Sabores Cienfuegos*%0A%0A`;
-                mensaje += `*Cliente:* ${nombre}%0A`;
-                mensaje += `*Teléfono:* ${telefono}%0A`;
-                mensaje += `*Dirección:* ${direccion} (${tipoDireccion})%0A%0A`;
-                mensaje += `*📋 Productos:*%0A`;
-
-                cart.forEach(item => {
-                    mensaje +=
-                        `  • ${item.nombre} ×${item.cantidad} — $${(item.precio * item.cantidad).toFixed(2)}%0A`;
+                const tipo = repartoSelect.value ? 'Reparto Cienfuegos' : 'Municipio';
+                const subtotal = cart.reduce((s, i) => s + i.precio * i.cantidad, 0);
+                const shipping = municipioSelect.value ? SHIPPING_COST : 0;
+                const total = subtotal + shipping;
+                let texto = `FACTURA - Combos La Perla del Sur\n`;
+                texto += `Cliente: ${nombre}\nTeléfono: ${telefono}\nDirección: ${direccion} (${tipo})\n`;
+                texto += `Fecha: ${new Date().toLocaleDateString('es-CU')}\n\n`;
+                texto += `PRODUCTOS:\n`;
+                cart.forEach(i => {
+                    texto += `- ${i.nombre}${i.esCombo?' (COMBO)':''} x${i.cantidad}  $${(i.precio*i.cantidad).toFixed(2)}\n`;
                 });
+                texto += `\nSubtotal: $${subtotal.toFixed(2)}\n`;
+                texto += `Envío: ${shipping===0?'GRATIS':'$'+shipping.toFixed(2)}\n`;
+                texto += `TOTAL: $${total.toFixed(2)}\n`;
+                texto += `\n¡Gracias por su compra!`;
+                return texto;
+            }
 
-                mensaje += `%0A*Subtotal:* $${subtotal.toFixed(2)}%0A`;
-                if (shipping === 0) {
-                    mensaje += `*Envío:* GRATIS 🚚%0A`;
-                } else {
-                    mensaje += `*Envío:* $${shipping.toFixed(2)}%0A`;
-                }
-                mensaje += `*TOTAL A PAGAR:* $${total.toFixed(2)} ✅`;
-
-                const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
-                window.open(url, '_blank', 'noopener,noreferrer');
-                showToast('📤 Abriendo WhatsApp...');
+            sendBtn.addEventListener('click', () => {
+                if (sendBtn.disabled) return;
+                const factura = generarFacturaTexto();
+                // Descargar archivo .txt automáticamente
+                const blob = new Blob([factura], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `factura_${Date.now()}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                // Abrir WhatsApp con mensaje resumido
+                const mensajeWhatsApp = encodeURIComponent(
+                    `*NUEVO PEDIDO Combos La Perla del Sur*\n\n` +
+                    `Cliente: ${nombreInput.value}\nTel: ${telefonoInput.value}\n` +
+                    `Dirección: ${repartoSelect.value || municipioSelect.value}\n\n` +
+                    `Total: $${cart.reduce((s,i)=>s+i.precio*i.cantidad,0) + (municipioSelect.value?SHIPPING_COST:0)} ` +
+                    `(se ha descargado factura completa)`
+                );
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${mensajeWhatsApp}`, '_blank');
+                showToast('📄 Factura descargada y WhatsApp abierto');
             });
 
-            // ─── INICIALIZAR ──────────────────
+            // Inicial
             renderCart();
-            updateFreeDeliveryMsg();
-            updateSendButton();
-
-            console.log('🍽️ Sabores Cienfuegos — Tienda lista');
-            console.log('📦 Productos cargados:', productos.length);
-            console.log('📍 Repartos:', repartosCienfuegos.length, '| Municipios:', municipiosCienfuegos
-                .length);
-            console.log('📱 WhatsApp:', WHATSAPP_NUMBER);
+            updateSendBtn();
         })();
     </script>
 </body>
