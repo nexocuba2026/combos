@@ -60,14 +60,54 @@
             color: var(--naranja-oscuro);
             letter-spacing: -0.5px;
             text-decoration: none;
+            /* Contenedor para el efecto de texto */
         }
         .logo-img {
             width: 38px;
             height: 38px;
             border-radius: 10px;
             object-fit: contain;
-            background: #ffffff;      /* fondo blanco */
+            background: #ffffff;
+            flex-shrink: 0;
         }
+        /* Contenedor del texto animado */
+        .logo-text {
+            position: relative;
+            display: inline-block;
+            height: 1.8rem;            /* altura fija para evitar saltos */
+            overflow: hidden;
+        }
+        .logo-text span {
+            display: block;
+            height: 1.8rem;
+            line-height: 1.8rem;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+        }
+        .logo-text .text-primary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .logo-text .text-secondary {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: translateY(0);
+            opacity: 0;
+        }
+        .logo-text.swapped .text-primary {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        .logo-text.swapped .text-secondary {
+            top: 0;
+            transform: translateY(-100%);
+            opacity: 1;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, opacity 0.5s ease 0.1s;
+        }
+
         .header-right {
             display: flex;
             align-items: center;
@@ -171,11 +211,11 @@
             box-shadow: 0 14px 34px rgba(160, 64, 0, 0.14);
         }
         .product-card img {
-            width: 200px;
-            height: 100%;
+            width: 100%;
+            height: 150px;
             object-fit: cover;
-            background: #ffffff;        /* fondo blanco */
-            cursor: pointer;            /* indica que es cliqueable */
+            background: #ffffff;
+            cursor: pointer;
         }
         .product-info {
             padding: 14px 12px;
@@ -311,29 +351,30 @@
         }
 
         /* ─── BOTÓN FLOTANTE ENVIAR ───── */
-       .floating-enviar {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #ffffff;                    /* fondo blanco */
-    color: var(--naranja-oscuro);           /* texto / icono naranja */
-    border: 2px solid var(--naranja-oscuro); /* silueta naranja */
-    border-radius: 50px;
-    padding: 12px 24px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(211, 84, 0, 0.4); /* sombra naranja */
-    z-index: 250;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: var(--transicion);
-    animation: float 3s ease-in-out infinite;
-}
+        .floating-enviar {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #ffffff;
+            color: var(--naranja-oscuro);
+            border: 2px solid var(--naranja-oscuro);
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(211, 84, 0, 0.4);
+            z-index: 250;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: var(--transicion);
+            animation: float 3s ease-in-out infinite;
+        }
         .floating-enviar:hover {
-            background: var(--caramelo);
+            background: var(--naranja-oscuro);
+            color: white;
             transform: translateY(-3px);
             box-shadow: 0 12px 32px rgba(160, 64, 0, 0.4);
         }
@@ -408,7 +449,10 @@
     <header class="header">
         <a href="index.html" class="logo">
             <img class="logo-img" src="img/logo.png" alt="Logo Combos La Perla del Sur">
-            Combos La Perla del Sur
+            <div class="logo-text" id="logoText">
+                <span class="text-primary">Combos La Perla del Sur</span>
+                <span class="text-secondary">Tu mejor opción</span>
+            </div>
         </a>
         <div class="header-right">
             <select class="category-select" id="categorySelect">
@@ -460,14 +504,14 @@
     <script>
         // Productos y combos (usa localStorage para el carrito)
         const productos = [
-            { id: 'p1', nombre: 'Pernil de cerdo', peso: '2 libras', precio: 6.50, descuento: 0, categoria: 'carnicos', img: 'img/cerdo.jpg' },
+            { id: 'p1', nombre: 'Muzlo de cerdo', peso: '2 libras', precio: 6.50, descuento: 0, categoria: 'carnicos', img: 'img/cerdo.jpg' },
             { id: 'p2', nombre: 'Aceite vegetal', peso: '1 litro', precio: 3.20, descuento: 5, categoria: 'enlatados', img: 'img/aceite.jpg' },
             { id: 'p3', nombre: 'Arroz', peso: '5 libras', precio: 4.00, descuento: 10, categoria: 'granos', img: 'img/arroz.jpg' },
             { id: 'p4', nombre: 'Frijoles negros', peso: '2 libras', precio: 3.50, descuento: 0, categoria: 'granos', img: 'img/frijoles.jpg' },
-            { id: 'p5', nombre: 'Azúcar blanca', peso: '4 libras', precio: 2.80, descuento: 5, categoria: 'otros', img: 'img/azucar.jpg' },
+            { id: 'p5', nombre: 'Azúcar blanca', peso: '4 libras', precio: 2.80, descuento: 5, categoria: 'confituras', img: 'img/azucar.jpg' },
             { id: 'p6', nombre: 'Refresco lata', peso: '355 ml', precio: 1.50, descuento: 0, categoria: 'bebidas', img: 'img/refresco.jpg' },
             { id: 'p7', nombre: 'Huevos (paquete 12)', peso: '12 unidades', precio: 4.20, descuento: 0, categoria: 'otros', img: 'img/huevos.jpg' },
-            { id: 'p8', nombre: 'Pan de molde', peso: '500 g', precio: 2.30, descuento: 10, categoria: 'confituras', img: 'img/pan.jpg' }
+            { id: 'p8', nombre: 'Pan de molde', peso: '500 g', precio: 2.30, descuento: 10, categoria: 'otros', img: 'img/pan.jpg' }
         ];
 
         const combos = [
@@ -500,10 +544,9 @@
                     <button class="add-to-cart" data-id="${item.id}" data-escombo="${esCombo}">＋ Añadir</button>
                 </div>
             `;
-            // Agregar evento a la imagen para abrir lightbox
             const img = div.querySelector('.product-img-clickable');
             img.addEventListener('click', (e) => {
-                e.stopPropagation(); // no añadir al carrito
+                e.stopPropagation();
                 openLightbox(item.img, item.nombre);
             });
             return div;
@@ -576,7 +619,6 @@
             showToast(`✅ ${item.nombre} añadido`);
         }
 
-        // Evento delegado para añadir
         document.addEventListener('click', e => {
             const btn = e.target.closest('.add-to-cart');
             if (!btn) return;
@@ -600,23 +642,22 @@
 
         lightboxClose.addEventListener('click', closeLightbox);
         lightboxOverlay.addEventListener('click', (e) => {
-            // cerrar solo si se hace clic en el fondo, no en la imagen
-            if (e.target === lightboxOverlay) {
-                closeLightbox();
-            }
+            if (e.target === lightboxOverlay) closeLightbox();
         });
-
-        // Cerrar con tecla Escape
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
-                closeLightbox();
-            }
+            if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) closeLightbox();
         });
 
-        // Badge al cargar
+        // Animación de texto del logo
+        const logoTextEl = document.getElementById('logoText');
+        let isPrimary = true;
+        setInterval(() => {
+            logoTextEl.classList.toggle('swapped');
+            isPrimary = !isPrimary;
+        }, 4000); // cambia cada 4 segundos
+
         updateBadge();
 
-        // Toast
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
