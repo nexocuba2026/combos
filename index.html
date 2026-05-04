@@ -311,27 +311,27 @@
         }
 
         /* ─── BOTÓN FLOTANTE ENVIAR ───── */
-        .floating-enviar {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: var(--naranja-oscuro);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 24px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(211, 84, 0, 0.3);
-            z-index: 250;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            transition: var(--transicion);
-            animation: float 3s ease-in-out infinite;
-        }
+       .floating-enviar {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #ffffff;                    /* fondo blanco */
+    color: var(--naranja-oscuro);           /* texto / icono naranja */
+    border: 2px solid var(--naranja-oscuro); /* silueta naranja */
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(211, 84, 0, 0.4); /* sombra naranja */
+    z-index: 250;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: var(--transicion);
+    animation: float 3s ease-in-out infinite;
+}
         .floating-enviar:hover {
             background: var(--caramelo);
             transform: translateY(-3px);
