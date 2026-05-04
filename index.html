@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Combos La Perla del Sur</title>
     <style>
         :root {
@@ -144,15 +144,14 @@
             50% { transform: scale(1.3); }
         }
 
-        /* ─── PANEL DEL CARRITO (corregido para móviles) ─── */
+        /* ─── PANEL DEL CARRITO (fijo en todo el alto) ─── */
         .cart-panel {
             position: fixed;
             top: 0;
             right: 0;
+            bottom: 0;                 /* ocupa todo el alto disponible */
             width: 420px;
             max-width: 100vw;
-            height: 100dvh; /* altura dinámica para móviles */
-            height: 100vh;  /* fallback */
             background: var(--blanco);
             box-shadow: -8px 0 40px rgba(0,0,0,0.12);
             z-index: 300;
@@ -161,8 +160,9 @@
             display: flex;
             flex-direction: column;
             padding: 24px 20px 20px;
-            overflow-y: auto;
             border-left: 1px solid var(--borde);
+            /* El overflow lo controlamos dentro del panel */
+            overflow: hidden; /* oculto, el scroll va en la lista de items */
         }
         .cart-panel.open {
             transform: translateX(0);
@@ -209,15 +209,15 @@
             color: var(--rojo);
         }
 
-        /* ─── LISTA DE ITEMS ────────────── */
+        /* ─── LISTA DE ITEMS (con scroll propio) ─── */
         .cart-items {
             list-style: none;
-            flex: 1;
+            flex: 1 1 auto;           /* permite que crezca y use el espacio disponible */
             display: flex;
             flex-direction: column;
             gap: 12px;
-            min-height: 100px;
-            overflow-y: auto;
+            overflow-y: auto;         /* scroll cuando sea necesario */
+            min-height: 0;            /* importante para que flex respete el overflow */
             margin-bottom: 18px;
             padding-right: 4px;
         }
@@ -269,6 +269,7 @@
             color: var(--rojo);
             white-space: nowrap;
         }
+        /* Botón para eliminar (diseño mejorado, más grande en móvil) */
         .cart-item-remove {
             background: none;
             border: none;
@@ -279,6 +280,11 @@
             transition: var(--transicion);
             padding: 4px 8px;
             z-index: 10;
+            min-width: 32px;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .cart-item-remove:hover {
             opacity: 1;
@@ -292,10 +298,10 @@
             border-bottom: 1.5px dashed var(--borde);
             padding: 14px 0;
             margin-bottom: 18px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            flex-shrink: 0;
         }
         .totals .row {
             display: flex;
@@ -316,7 +322,12 @@
             font-weight: 700;
         }
 
-        /* ─── FORMULARIO ──────────────── */
+        /* ─── FORMULARIO (contenido fijo abajo) ─── */
+        .cart-form {
+            flex-shrink: 0;           /* no se encoge, siempre visible */
+            display: flex;
+            flex-direction: column;
+        }
         .form-group {
             margin-bottom: 14px;
             display: flex;
@@ -584,7 +595,7 @@
             transform: translateX(-50%) translateY(-6px);
         }
 
-        /* ─── BOTÓN FLOTANTE ENVIAR ───── */
+        /* ─── BOTÓN FLOTANTE ──────────── */
         .floating-enviar {
             position: fixed;
             bottom: 24px;
@@ -637,7 +648,7 @@
                 font-size: 0.8rem;
                 background-position: right 8px center;
                 padding-right: 28px;
-                max-width: 150px;
+                max-width: 140px;
             }
             .cart-btn {
                 padding: 8px 14px;
@@ -646,15 +657,7 @@
             .cart-panel {
                 width: 100%;
                 max-width: 100vw;
-                height: 100dvh;
-                height: 100vh;
-                border-radius: 0;
-                top: 0;
-                bottom: auto;
-                transform: translateX(100%);
-            }
-            .cart-panel.open {
-                transform: translateX(0);
+                /* top, bottom se mantienen */
             }
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -703,7 +706,6 @@
     <!-- ═══════════ HEADER ═══════════ -->
     <header class="header">
         <div class="logo">
-            <!-- LOGO (cambia por tu imagen en img/logo.png) -->
             <img class="logo-img" src="img/logo.png" alt="Logo La Perla del Sur">
             Combos La Perla del Sur
         </div>
@@ -727,7 +729,7 @@
     <!-- OVERLAY -->
     <div class="cart-overlay" id="cartOverlay"></div>
 
-    <!-- PANEL "MI PEDIDO" (altura adaptada a móvil) -->
+    <!-- PANEL "MI PEDIDO" -->
     <aside class="cart-panel" id="cartPanel">
         <div class="cart-panel-header">
             <h3>📋 Mi pedido</h3>
@@ -739,58 +741,56 @@
             <div class="row"><span>Envío</span><span id="shippingDisplay">—</span></div>
             <div class="row total"><span>TOTAL</span><span id="totalDisplay">$0.00</span></div>
         </div>
-
-        <div class="form-group">
-            <label>🚚 Tipo de envío</label>
-            <select id="tipoEnvioSelect">
-                <option value="">Selecciona una opción</option>
-                <option value="ciudad">Cienfuegos Ciudad</option>
-                <option value="municipio">Municipios</option>
-            </select>
-        </div>
-
-        <div class="address-container" id="ciudadContainer">
+        <div class="cart-form">
             <div class="form-group">
-                <label>📍 Reparto en Cienfuegos</label>
-                <select id="repartoSelect"><option value="">Selecciona tu reparto</option></select>
+                <label>🚚 Tipo de envío</label>
+                <select id="tipoEnvioSelect">
+                    <option value="">Selecciona una opción</option>
+                    <option value="ciudad">Cienfuegos Ciudad</option>
+                    <option value="municipio">Municipios</option>
+                </select>
             </div>
-            <div class="free-delivery-msg" id="freeDeliveryMsg" style="display:none;">✅ Domicilio GRATIS</div>
-        </div>
 
-        <div class="address-container" id="municipioContainer">
+            <div class="address-container" id="ciudadContainer">
+                <div class="form-group">
+                    <label>📍 Reparto en Cienfuegos</label>
+                    <select id="repartoSelect"><option value="">Selecciona tu reparto</option></select>
+                </div>
+                <div class="free-delivery-msg" id="freeDeliveryMsg" style="display:none;">✅ Domicilio GRATIS</div>
+            </div>
+
+            <div class="address-container" id="municipioContainer">
+                <div class="form-group">
+                    <label>🏘️ Municipio</label>
+                    <select id="municipioSelect"><option value="">Selecciona tu municipio</option></select>
+                </div>
+                <div class="form-group" id="consejoGroup" style="display:none;">
+                    <label>📍 Consejo Popular</label>
+                    <select id="consejoSelect"><option value="">Selecciona tu consejo popular</option></select>
+                </div>
+            </div>
+
             <div class="form-group">
-                <label>🏘️ Municipio</label>
-                <select id="municipioSelect"><option value="">Selecciona tu municipio</option></select>
+                <label>🏠 Dirección exacta</label>
+                <input type="text" id="direccionExactaInput" placeholder="Calle / # casa / entre calles / referencia">
             </div>
-            <div class="form-group" id="consejoGroup" style="display:none;">
-                <label>📍 Consejo Popular</label>
-                <select id="consejoSelect"><option value="">Selecciona tu consejo popular</option></select>
+            <div class="form-group">
+                <label>👤 Nombre completo</label>
+                <input type="text" id="nombreInput" placeholder="Ej: María García">
             </div>
-        </div>
+            <div class="form-group">
+                <label>📱 Teléfono</label>
+                <input type="tel" id="telefonoInput" placeholder="+5355123456">
+            </div>
 
-        <div class="form-group">
-            <label>🏠 Dirección exacta</label>
-            <input type="text" id="direccionExactaInput" placeholder="Calle / # casa / entre calles / referencia">
+            <button class="whatsapp-btn" id="sendBtn" disabled>
+                💬 Enviar pedido por WhatsApp
+            </button>
         </div>
-
-        <div class="form-group">
-            <label>👤 Nombre completo</label>
-            <input type="text" id="nombreInput" placeholder="Ej: María García">
-        </div>
-        <div class="form-group">
-            <label>📱 Teléfono</label>
-            <input type="tel" id="telefonoInput" placeholder="+5355123456">
-        </div>
-
-        <button class="whatsapp-btn" id="sendBtn" disabled>
-            💬 Enviar pedido por WhatsApp
-        </button>
     </aside>
 
-    <!-- BOTÓN FLOTANTE ENVIAR -->
-    <button class="floating-enviar" id="floatingEnviarBtn">
-        📤 Enviar
-    </button>
+    <!-- BOTÓN FLOTANTE -->
+    <button class="floating-enviar" id="floatingEnviarBtn">📤 Enviar</button>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container">
@@ -852,7 +852,7 @@
                 'Rodas': ['Rodas I','14 de Julio']
             };
 
-            // ⚠️ IMÁGENES: Coloca tus fotos en la carpeta "img" con estos nombres
+            // Productos con imágenes locales (carpeta img/)
             const productos = [
                 { id: 'p1', nombre: 'Muzlo de cerdo', peso: '2 libras', precio: 6.50, descuento: 0, categoria: 'carnicos', img: 'img/cerdo.jpg' },
                 { id: 'p2', nombre: 'Aceite vegetal', peso: '1 litro', precio: 3.20, descuento: 5, categoria: 'enlatados', img: 'img/aceite.jpg' },
@@ -871,7 +871,7 @@
             ];
 
             // ═══════════════════════════════
-            // CARRITO (funcionalidad corregida)
+            // CARRITO
             // ═══════════════════════════════
             const cart = [];
 
@@ -879,7 +879,7 @@
             const cartToggle = document.getElementById('cartToggle');
             const cartPanel = document.getElementById('cartPanel');
             const cartOverlay = document.getElementById('cartOverlay');
-            const closeCart = document.getElementById('closeCart');
+            const closeCartBtn = document.getElementById('closeCart');
             const cartItemsEl = document.getElementById('cartItems');
             const cartBadge = document.getElementById('cartBadge');
             const subtotalDisplay = document.getElementById('subtotalDisplay');
@@ -983,14 +983,14 @@
                 cartOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
-            function closeCartPanel() {
+            function closeCart() {
                 cartPanel.classList.remove('open');
                 cartOverlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
             cartToggle.addEventListener('click', openCart);
-            closeCart.addEventListener('click', closeCartPanel);
-            cartOverlay.addEventListener('click', closeCartPanel);
+            closeCartBtn.addEventListener('click', closeCart);
+            cartOverlay.addEventListener('click', closeCart);
             floatingEnviarBtn.addEventListener('click', openCart);
 
             // Tipo de envío
@@ -1016,7 +1016,19 @@
             });
             consejoSelect.addEventListener('change', updateSendBtn);
 
-            // FUNCIONES DEL CARRITO (eliminación arreglada)
+            // ⭐ Eliminar producto (evento delegado, 100% fiable)
+            cartItemsEl.addEventListener('click', (e) => {
+                const removeBtn = e.target.closest('.cart-item-remove');
+                if (!removeBtn) return;
+                e.stopPropagation();
+                const li = removeBtn.closest('.cart-item');
+                if (!li) return;
+                const id = li.dataset.id;   // guardamos el id en el <li>
+                if (id) {
+                    removeItem(id);
+                }
+            });
+
             function addItem(item, esCombo) {
                 const existing = cart.find(i => i.id === item.id);
                 if (existing) {
@@ -1051,6 +1063,7 @@
 
                     const li = document.createElement('li');
                     li.className = 'cart-item';
+                    li.dataset.id = item.id;  // crucial para el evento delegado
                     li.innerHTML = `
                         <img src="${item.img}" class="cart-item-img" alt="${item.nombre}">
                         <div class="cart-item-info">
@@ -1060,14 +1073,6 @@
                         <span class="cart-item-price">$${subtotalItem.toFixed(2)}</span>
                         <button class="cart-item-remove" type="button">✕</button>
                     `;
-
-                    // Asignar evento de eliminación directamente al botón
-                    const removeBtn = li.querySelector('.cart-item-remove');
-                    removeBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        removeItem(item.id);
-                    });
-
                     cartItemsEl.appendChild(li);
                 });
 
