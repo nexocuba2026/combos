@@ -71,14 +71,13 @@
             height: 38px;
             border-radius: 10px;
             object-fit: contain;
-            background: #fae1cf; /* fondo sutil */
+            background: #fae1cf;
         }
         .header-right {
             display: flex;
             align-items: center;
             gap: 16px;
         }
-        /* Select de categorías */
         .category-select {
             font-family: inherit;
             padding: 10px 14px;
@@ -722,7 +721,7 @@
                 <label>🏘️ Municipio</label>
                 <select id="municipioSelect"><option value="">Selecciona tu municipio</option></select>
             </div>
-            <!-- NUEVO: Select de Consejo Popular -->
+            <!-- Select de Consejo Popular -->
             <div class="form-group" id="consejoGroup" style="display:none;">
                 <label>📍 Consejo Popular</label>
                 <select id="consejoSelect"><option value="">Selecciona tu consejo popular</option></select>
@@ -804,7 +803,7 @@
             // ═══════ CONSEJOS POPULARES POR MUNICIPIO ═══════
             const consejosPopulares = {
                 'Aguada de Pasajeros': ['María Victoria','Federal','Primero de Mayo','Real Campiña','Managuaco','La Torula','La Libertad'],
-                'Abreus': ['Constancia','Horquita','Yaguaramas','Charca','Cieneguita'], // lista parcial
+                'Abreus': ['Constancia','Horquita','Yaguaramas','Charca','Cieneguita'],
                 'Cruces': ['El No-Chicharrones','Potrerillo','Paradero de Camarones','San José'],
                 'Cumanayagua': ['Sierrita','Breñas','Crespo','Barajagua','Crucesitas','Camilo Cienfuegos','Arimao','Sopapo','Cuatro Vientos','Napoleón Diego','Rafelito','Las Brisas','Las Moscas'],
                 'Lajas': ['Lajas Norte','Lajas Sur','Ajuria','Barrio Piragua','La Modelo','Caracas','Ramón Balboa'],
@@ -1064,11 +1063,9 @@
                 updateTotals();
                 updateSendBtn();
             });
-            // El cambio de consejo popular solo afecta validación
             consejoSelect.addEventListener('change', () => {
                 updateSendBtn();
             });
-            // El cambio de municipio ya está manejado arriba (también updateSendBtn)
 
             // Carrito
             function addItem(item, esCombo) {
@@ -1089,6 +1086,7 @@
                 renderCart();
                 pulseBadge();
                 showToast(`✅ ${item.nombre} añadido`);
+                // Se eliminó openCart() para no abrir automáticamente
             }
             function removeItem(id) {
                 cart = cart.filter(i => i.id !== id);
@@ -1181,15 +1179,17 @@
             telefonoInput.addEventListener('input', updateSendBtn);
             direccionExactaInput.addEventListener('input', updateSendBtn);
 
-            // Añadir productos
+            // Añadir productos (NO abre carrito)
             document.addEventListener('click', (e) => {
                 if (e.target.classList.contains('add-to-cart')) {
                     const id = e.target.dataset.id;
                     const esCombo = e.target.dataset.escombo === 'true';
                     const fuente = esCombo ? combos : productos;
                     const item = fuente.find(p => p.id === id);
-                    if (item) addItem(item, esCombo);
-                    openCart();
+                    if (item) {
+                        addItem(item, esCombo);
+                        // No se llama a openCart() para mantenerlo cerrado
+                    }
                 }
             });
 
